@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence
+    version="2.0"
+    xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+   <persistence-unit name="mystudies-persistence">
+      <jta-data-source>java:/mystudies</jta-data-source>
+      <class>br.com.mystudies.domain.entity.BackLog</class>
+      <class>br.com.mystudies.domain.entity.Theme</class>
+      <class>br.com.mystudies.domain.entity.Story</class>
+      <class>br.com.mystudies.domain.entity.Sprint</class>
+
+
+      <properties>
+      	  <property name="hibernate.show_sql" value="true"/>
+          <property name="hibernate.format_sql" value="true"/>
+          <property name="hibernate.hbm2ddl.auto" value="update"/>
+      </properties>
+   </persistence-unit>
+
+</persistence>

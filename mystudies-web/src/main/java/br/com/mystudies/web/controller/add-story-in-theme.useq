@@ -1,0 +1,49 @@
+<sequence-diagram version="1.0.8" icons="true">  
+  <object id="1" language="java" name="br.com.mystudies.web.controller.ThemeServlet" project="mystudies-web" 
+    file="/mystudies-web/src/main/java/br/com/mystudies/web/controller/ThemeServlet.java" binary="false" 
+    label="themeServlet" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="98" y="0"/>    
+    <execution id="2">      
+      <position height="172" width="143" x="5" y="137"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="21" width="7" x="73" y="237"/>    
+    </execution>  
+  </object>  
+  <object id="6" language="java" name="br.com.mystudies.service.ThemeService" project="mystudies-service" 
+    file="/mystudies-service/src/main/java/br/com/mystudies/service/ThemeService.java" binary="false" 
+    label="themeService" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="276" y="0"/>    
+    <execution id="4">      
+      <position height="130" width="117" x="152" y="158"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="21" width="7" x="207" y="225"/>    
+    </execution>  
+  </object>  
+  <object id="11" language="java" name="br.com.mystudies.service.persistence.ThemeDao" project="mystudies-service" 
+    file="/mystudies-service/src/main/java/br/com/mystudies/service/persistence/ThemeDao.java" binary="false" 
+    label="themeDao" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="366" y="0"/>    
+    <execution id="8">      
+      <position height="88" width="168" x="273" y="179"/>    
+    </execution>  
+  </object>  
+  <message id="3" 
+    operation="addStory(br.com.mystudies.domain.entity.Theme,br.com.mystudies.domain.entity.Story):br.com.mystudies.domain.entity.Theme">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="7" operation="update(br.com.mystudies.domain.entity.Theme):br.com.mystudies.domain.entity.Theme">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </message>  
+  <message id="12">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>
+</sequence-diagram>
