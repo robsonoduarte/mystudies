@@ -12,6 +12,8 @@ import br.com.mystudies.service.persistence.StoryDao;
 @Remote(StoryService.class)
 public class StoryServiceBean implements StoryService {
 
+	// test git
+	
 	@EJB
 	private StoryDao storyDao;
 
