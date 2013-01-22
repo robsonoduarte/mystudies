@@ -1,3 +1,4 @@
+
 package br.com.mystudies.service.schedule;
 
 import java.util.Date;
@@ -17,6 +18,8 @@ import br.com.mystudies.service.persistence.SprintDao;
 @Singleton
 public class ScheduleSprint {
 
+	
+	
 
 	// FIXME: choice the best log for app AND LOGGING ONLY IN DEBUG MODE.
 	private Logger LOGGER = Logger.getLogger(this.getClass().getName());
