@@ -58,7 +58,6 @@ public class StatisticallyServiceBean {
 	}
 
 	
-	
 		
 	private Integer getPointsInBacklogInSprint(Sprint sprint,List<Story> stories) {
 		return sumFrom(select(stories,having(on(Story.class).getCreationDate(), inPeriod(sprint.getFinalDate())))).getPoints();

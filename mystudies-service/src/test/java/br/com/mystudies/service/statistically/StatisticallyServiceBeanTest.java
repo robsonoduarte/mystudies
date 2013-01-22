@@ -111,9 +111,6 @@ public class StatisticallyServiceBeanTest {
 	
 	
 	
-	
-	
-	
 	private List<Story> getStories() throws ParseException {
 		
 		List<Story> stories = new ArrayList<>();
