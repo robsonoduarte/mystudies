@@ -31,7 +31,7 @@ public class ScheduleSprint {
 	private SprintDao sprintDao;
 
 
-//	@Schedule(hour="*", minute="*/1")
+	@Schedule(hour="*", minute="*/1")
 	public void execute() {
 
 		LOGGER.info("starting scheduling sprint");
@@ -50,9 +50,7 @@ public class ScheduleSprint {
 				sprintDao.update(sprint);
 			}
 		}
-
 		LOGGER.info("finishing scheduling sprint");
-
 	}
 
 

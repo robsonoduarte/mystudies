@@ -1,5 +1,7 @@
 package br.com.mystudies.service;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -37,6 +39,13 @@ public class StoryServiceBean implements StoryService {
 
 
 		return storyDao.update(story);
+	}
+
+
+	@Override
+	public List<Story> getStories(StoryStatus storyStatus) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
