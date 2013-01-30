@@ -6,6 +6,7 @@
 		<artifactId>mystudies</artifactId>
 		<groupId>br.com</groupId>
 		<version>1.0.0</version>
+		<relativePath>../mystudies</relativePath>
 	</parent>
 
   <artifactId>mystudies-ear</artifactId>
