@@ -57,7 +57,7 @@ public class KanbanServlet extends HttpServlet {
 
     	if(action != null){
 
-    		switch (action) {
+/*    		switch (action) {
 
 
 				case "UPDATESTATUSSTORY":
@@ -69,9 +69,18 @@ public class KanbanServlet extends HttpServlet {
 
 			default:
 				break;
-			}
-    	}
+			}*/
 
+    		
+    		if("UPDATESTATUSSTORY".equals(action)){    			
+    			storyService.updateStatusStory(
+    					Long.valueOf(request.getParameter("storyID")),
+    					StoryStatus.valueOf(request.getParameter("kanbanFase"))
+    					);
+    		}
+
+    	}
+    	
     	setCurrentSprintInRequest(request);
 
 
@@ -98,7 +107,7 @@ public class KanbanServlet extends HttpServlet {
     			sprint.getStories();
 
 
-    	Map<Theme, List<Story>> map = new HashMap<>();
+    	Map<Theme, List<Story>> map = new HashMap<Theme, List<Story>>();
 
 
     	for (Story story : stories) {
@@ -107,7 +116,7 @@ public class KanbanServlet extends HttpServlet {
     			map.get(story.getTheme()).add(story);
     		}else{
 
-    			List<Story> s = new ArrayList<>();
+    			List<Story> s = new ArrayList<Story>();
 
     			s.add(story);
 

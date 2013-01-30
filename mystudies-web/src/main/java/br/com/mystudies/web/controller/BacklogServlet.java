@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.ejb.EJB;
-import javax.persistence.EnumType;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,7 +52,7 @@ public class BacklogServlet extends HttpServlet {
 
 		if( action != null){
 
-			switch (action) {
+/*			switch (action) {
 
 				case "ADDTHEME":
 					backLogService.addTheme(getBackLog(), getTheme(request));
@@ -63,6 +62,13 @@ public class BacklogServlet extends HttpServlet {
 				default:
 					sendtoBackLogThemesFragment(request, response);
 					break;
+			}*/
+			
+			if("ADDTHEME".endsWith(action)){
+				backLogService.addTheme(getBackLog(), getTheme(request));
+				sendtoBackLogThemesFragment(request, response);				
+			}else{				
+				sendtoBackLogThemesFragment(request, response);				
 			}
 		}
 	}

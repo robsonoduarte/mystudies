@@ -3,8 +3,6 @@ package br.com.mystudies.web.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -15,10 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.mystudies.domain.entity.Sprint;
-import br.com.mystudies.domain.entity.Story;
-import br.com.mystudies.domain.enun.Priority;
 import br.com.mystudies.domain.enun.SprintStatus;
-import br.com.mystudies.domain.enun.StoryStatus;
 import br.com.mystudies.service.SprintService;
 
 
@@ -58,7 +53,7 @@ public class SprintServlet extends HttpServlet {
 
 		if(action != null){
 
-			switch (action) {
+/*			switch (action) {
 				case "NEWSPRINT":
 					sendToSprintFormFragment(
 							request,
@@ -70,13 +65,21 @@ public class SprintServlet extends HttpServlet {
 					sprintService.create(getSprint(request, response));
 					sendToSprintsFragment(request, response);
 					break;
+			}*/
+			
+			if("NEWSPRINT".equals(action)){
+				
+				sendToSprintFormFragment(
+						request,
+						response,
+						sprintService.containsSprintInRun()
+						);
+			}else if("CREATESPRINT".equals(action)){
+				sprintService.create(getSprint(request, response));
+				sendToSprintsFragment(request, response);				
 			}
 		}
 	}
-
-
-
-
 
 	private Sprint getSprint(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException {

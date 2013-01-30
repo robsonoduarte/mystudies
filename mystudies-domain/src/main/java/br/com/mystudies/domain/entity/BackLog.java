@@ -34,7 +34,7 @@ public class BackLog implements EntityBase{
 
 	public void addTheme(Theme theme) {
 		if(themes == null){
-			themes = new HashSet<>();
+			themes = new HashSet<Theme>();
 		}
 		theme.setBackLog(this); // FIXME: Null pointer, remove this logic there ?
 		themes.add(theme);

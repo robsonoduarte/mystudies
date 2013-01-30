@@ -2,7 +2,6 @@ package br.com.mystudies.web.controller;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.concurrent.Semaphore;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -56,7 +55,7 @@ public class ThemeServlet extends HttpServlet {
 
 		if(action != null){
 
-			switch (action) {
+/*			switch (action) {
 
 				case "ADDSTORY":{
 					sendToThemeStoriesFragment(
@@ -88,7 +87,32 @@ public class ThemeServlet extends HttpServlet {
 					sendToThemePage(request, response);
 					break;
 				}
+			}*/
+			
+			
+			if("ADDSTORY".equals(action)){	
+				sendToThemeStoriesFragment(
+						request,
+						response,
+						themeService.addStory(getTheme(request), getStory(request))
+						);
+			}else if ("ADDSTORYSPRINT".equals(action)) {
+				sprintService.addStoryInSprint(
+						storyService.getStory(
+								Long.parseLong(request.getParameter("storyId"))
+								)
+						);
+				
+				
+				sendToThemeStoriesFragment(
+						request,
+						response,
+						getTheme(request)
+						);				
+			}else{
+				sendToThemePage(request, response);
 			}
+			
 		}
 	}
 

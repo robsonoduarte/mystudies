@@ -5,15 +5,10 @@ import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
 import static ch.lambdaj.Lambda.sumFrom;
-import static org.hamcrest.Matchers.equalTo;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
-
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.math3.util.Precision;
 
 import br.com.mystudies.domain.entity.Sprint;
@@ -39,7 +34,7 @@ public class StatisticallyServiceBean {
 		
 		double totalDonePooints = 0; 
 		
-		List<Temp> temps = new ArrayList<>();
+		List<Temp> temps = new ArrayList<Temp>();
 		
 		for (Sprint sprint : sprints) {
 			
