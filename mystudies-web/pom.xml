@@ -23,14 +23,12 @@
   		<groupId>br.com</groupId>
   		<artifactId>mystudies-domain</artifactId>
   		<version>1.0.0</version>
-  		<scope>provided</scope>
   	</dependency>
   	<dependency>
   		<groupId>br.com</groupId>
   		<artifactId>mystudies-service</artifactId>
   		<type>ejb</type>
   		<version>1.0.0</version>
-  		<scope>provided</scope>
   	</dependency>
   	<dependency>
   		<groupId>com.google.code.gson</groupId>

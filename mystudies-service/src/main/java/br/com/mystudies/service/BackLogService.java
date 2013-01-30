@@ -12,6 +12,8 @@ import br.com.mystudies.domain.entity.Theme;
  */
 public interface BackLogService {
 
+	
+	
 	/**
 	 * Add the {@link Theme} in {@link BackLog}.
 	 *
@@ -29,9 +31,6 @@ public interface BackLogService {
 	 * @return - {@link BackLog} found with id;
 	 */
 	BackLog getBackLog(long id);
-
-
-
 
 	
 }
