@@ -21,7 +21,7 @@ public class MatchersBravox {
 
 			@Override
 			public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
-				// TODO Auto-generated method stub				
+				/*java.util.Arrays.fill(, fromIndex, toIndex, val)*/
 			}
 
 			@Override
