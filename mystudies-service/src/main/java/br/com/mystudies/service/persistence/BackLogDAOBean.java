@@ -17,7 +17,7 @@ import br.com.mystudies.domain.entity.BackLog;
 @Local(BackLogDAO.class)
 public class BackLogDAOBean  implements BackLogDAO{
 
-	@PersistenceContext
+	/*@PersistenceContext*/
 	private EntityManager entityManager;
 
 

@@ -19,7 +19,7 @@ import br.com.mystudies.domain.enun.SprintStatus;
 public class SprintDaoBean implements SprintDao {
 
 
-	@PersistenceContext
+	/*@PersistenceContext*/
 	private EntityManager entityManager;
 
 
