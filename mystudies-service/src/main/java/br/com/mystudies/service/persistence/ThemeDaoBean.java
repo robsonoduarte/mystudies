@@ -11,7 +11,7 @@ import br.com.mystudies.domain.entity.Theme;
 @Local(ThemeDao.class)
 public class ThemeDaoBean implements ThemeDao{
 
-	/*@PersistenceContext*/
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override

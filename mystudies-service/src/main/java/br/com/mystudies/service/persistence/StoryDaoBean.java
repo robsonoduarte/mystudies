@@ -12,7 +12,7 @@ import br.com.mystudies.domain.entity.Story;
 public class StoryDaoBean implements StoryDao {
 
 
-	/*@PersistenceContext*/
+	@PersistenceContext
 	private EntityManager entityManager;
 
 
