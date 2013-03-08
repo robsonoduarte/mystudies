@@ -58,6 +58,8 @@
 				</form>
 			</div>
 										
+			<br><br> deploy in: <c:out value="${appDeployTime}"/>
+		
 		</div>
 
 
@@ -69,11 +71,15 @@
 			<li ><a href="statistics" >Statistics</a></li>
 		</ul>
 		
+
+		
 		
 		<script type="text/javascript" src="resources/js/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="resources/js/menu.js"></script>
 		<script type="text/javascript" src="resources/js/general.js"></script>
 		<script type="text/javascript" src="resources/js/backlog.js"></script>
 
+		
+		
 	</body>
 </html>
