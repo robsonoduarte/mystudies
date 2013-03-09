@@ -1,6 +1,5 @@
 package br.com.mystudies.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;

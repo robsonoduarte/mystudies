@@ -1,14 +1,9 @@
 package br.com.mystudies.service.persistence;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import br.com.mystudies.service.persistence.BackLogDAOBean;
 
 /**
  * @author Robson

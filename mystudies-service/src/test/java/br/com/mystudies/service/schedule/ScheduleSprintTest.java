@@ -1,12 +1,11 @@
 package br.com.mystudies.service.schedule;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 
 import org.junit.After;

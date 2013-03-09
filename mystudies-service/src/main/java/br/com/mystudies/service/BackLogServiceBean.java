@@ -5,7 +5,6 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import br.com.mystudies.domain.entity.BackLog;
-import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.entity.Theme;
 import br.com.mystudies.service.persistence.BackLogDAO;
 
