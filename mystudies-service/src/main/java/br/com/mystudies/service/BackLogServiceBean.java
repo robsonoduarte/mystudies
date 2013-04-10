@@ -29,6 +29,8 @@ public class BackLogServiceBean implements BackLogService {
 		// FIXME: validation with beans validation !! technical debt !
 		backLog.addTheme(theme);
 		return backLogDAO.update(backLog);
+		
+		
 	}
 
 

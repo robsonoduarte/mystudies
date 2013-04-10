@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.gson.Gson;
-
 import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.service.SprintService;
+
+import com.google.gson.Gson;
 
 
 @WebServlet("/statistics")
@@ -41,7 +41,14 @@ public class StatisticsServlet extends HttpServlet {
 		
 		if( !StringUtils.isBlank(getJSONSprints)){			
 			List<Sprint> sprints = sprintService.getAllSprints();
+			
+			for (Sprint sprint : sprints) {				
+				sprint.getStories().clear();
+			} 
+			
+			
 			response.getWriter().print(gson.toJson(sprints));
+			
 		}else{			
 			request.getRequestDispatcher("pages/statistics/statistics.jsp").forward(request, response);			
 		}

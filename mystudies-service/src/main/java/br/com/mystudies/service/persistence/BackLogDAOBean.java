@@ -25,7 +25,8 @@ public class BackLogDAOBean  implements BackLogDAO{
 	public BackLog update(BackLog backLog) {
 
 		// FIXME: EXTREMELY TEMPORARY BECAUSE I'VE TECHNICAL DEBT ABOUT UNIT TEST WITH PERSISTENCE CLASS.
-
+		
+		
 		return entityManager.merge(backLog);
 	}
 

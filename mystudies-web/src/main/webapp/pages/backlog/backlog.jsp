@@ -68,6 +68,7 @@
 			<li ><a>Add Comment</a></li>
 			<li ><a href="sprints" >Sprints</a></li>
 			<li ><a href="kanban" >Kanban</a></li>
+			<li ><a href="statistics" >Statistics</a></li>
 		</ul>
 		
 
