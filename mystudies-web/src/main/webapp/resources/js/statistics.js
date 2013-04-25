@@ -1,8 +1,7 @@
 var sprints = [];
 var points = [];
 
-
-$(function () {	
+$(function () {
 	$.getJSON(
 		'statistics',
 		 'getJSONSprints=true',
@@ -12,13 +11,13 @@ $(function () {
 						sprints.push("Sprint " + sprint.id);
 						points.push(sprint.donePoints);
 				});
-						
-				createChart();	
-			}			
+
+				createChart();
+			}
 		);
-	
-	
-	chart = new Highcharts.Chart({
+
+
+	/*chart = new Highcharts.Chart({
         chart: {
             renderTo: 'container2',
             type: 'bar'
@@ -79,12 +78,13 @@ $(function () {
             name: 'Total de Sprints a fazer',
             data: [1.25, 4.4, 3.72, 4.11, 6.8]
         }]
-    });
+    });*/
 });
 
 
+
 function createChart() {
-	
+
    chart = new Highcharts.Chart({
         chart: {
             renderTo: 'container',
