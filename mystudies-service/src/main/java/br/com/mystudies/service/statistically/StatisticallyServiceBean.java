@@ -1,6 +1,6 @@
 package br.com.mystudies.service.statistically;
 
-import static br.com.mystudies.service.temp.MatchersBravox.inPeriod;
+import static br.com.mystudies.service.temp.InPeriod.inPeriod;
 import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
@@ -19,42 +19,51 @@ import br.com.mystudies.service.StoryService;
 
 public class StatisticallyServiceBean {
 
-	
-	
+
+
 	/*@EJB*/
 	private SprintService sprintService;
-	
+
 	private StoryService storyService;
-	
+
 	public List<Temp> get() {
 
 		List<Sprint> sprints = sprintService.getAllSprints();
 		List<Story> stories = storyService.getStories(StoryStatus.BACKLOG);
-	
-		
-		double totalDonePooints = 0; 
-		
+
+
+		double totalDonePooints = 0;
+		int totalPointBackLog = 0;
+
 		List<Temp> temps = new ArrayList<Temp>();
-		
+
 		for (Sprint sprint : sprints) {
-			
+
 			totalDonePooints += sprint.getDonePoints();
-			
+
 			Temp temp = new Temp();
-			temp.setAverage(Precision.round(totalDonePooints / sprint.getId(), 1));			
-			temp.setPointsInBacklog(getPointsInBacklogInSprint(sprint,stories));
-			
+			temp.setAverage(Precision.round(totalDonePooints / sprint.getId(), 1));
+
+
+
+			totalPointBackLog = totalPointBackLog + getPointsInBacklogInSprint(sprint,stories);
+
+
+			temp.setPointsInBacklog(totalPointBackLog);
+
 			temps.add(temp);
 		}
-		
+
 		return temps;
-		
+
 
 	}
 
-	
-		
+
+
 	private Integer getPointsInBacklogInSprint(Sprint sprint,List<Story> stories) {
-		return sumFrom(select(stories,having(on(Story.class).getCreationDate(), inPeriod(sprint.getFinalDate())))).getPoints();
-	}		
+		return sumFrom(select(stories,having(on(Story.class).getCreationDate(), inPeriod(sprint.getStartDate(),sprint.getFinalDate())))).getPoints();
+	}
+	
+	
 }
