@@ -1,7 +1,12 @@
 var sprints = [];
 var points = [];
 
+var average = [];
+var pointsInBacklog = [];
+var sprintsToDo = [];
+
 $(function () {
+
 	$.getJSON(
 		'statistics',
 		 'getJSONSprints=true',
@@ -16,69 +21,20 @@ $(function () {
 			}
 		);
 
+	$.getJSON(
+			'statistics',
+			'getJSONStemp=true',
+			function(data){
+				$.each(data,
+						function(index,temp){
+							average.push(temp.average);
+							pointsInBacklog.push(temp.pointsInBacklog);
+							sprintsToDo.push(temp.sprintsToDo);
+					});
 
-	/*chart = new Highcharts.Chart({
-        chart: {
-            renderTo: 'container2',
-            type: 'bar'
-        },
-        title: {
-            text: 'Media X Backlog X Sprints'
-        },
-        xAxis: {
-            categories: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4', 'Sprint 5'],
-            title: {
-                text: null
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Pontos',
-                align: 'high'
-            },
-            labels: {
-                overflow: 'justify'
-            }
-        },
-        tooltip: {
-            formatter: function() {
-                return ''+
-                    this.series.name +': '+ this.y +' pontos';
-            }
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -100,
-            y: 100,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor: '#FFFFFF',
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: 'Media de pontos por Sprint',
-            data: [40, 22.5, 32.2, 34, 36.6]
-        }, {
-            name: 'Total de pontos no BackLog',
-            data: [50, 100, 120, 140, 250]
-        }, {
-            name: 'Total de Sprints a fazer',
-            data: [1.25, 4.4, 3.72, 4.11, 6.8]
-        }]
-    });*/
+				temp();
+			}
+	);
 });
 
 
@@ -129,3 +85,77 @@ function createChart() {
         }]
     });
 }
+
+
+
+
+
+
+function temp() {
+
+
+		chart = new Highcharts.Chart({
+	    chart: {
+	        renderTo: 'container2',
+	        type: 'bar'
+	    },
+	    title: {
+	        text: 'Media X Backlog X Sprints'
+	    },
+	    xAxis: {
+	        categories: sprints,
+	        title: {
+	            text: null
+	        }
+	    },
+	    yAxis: {
+	        min: 0,
+	        title: {
+	            text: 'Pontos',
+	            align: 'high'
+	        },
+	        labels: {
+	            overflow: 'justify'
+	        }
+	    },
+	    tooltip: {
+	        formatter: function() {
+	            return ''+ this.series.name +': '+ this.y ;
+	        }
+	    },
+	    plotOptions: {
+	        bar: {
+	            dataLabels: {
+	                enabled: true
+	            }
+	        }
+	    },
+	    legend: {
+	        layout: 'vertical',
+	        align: 'right',
+	        verticalAlign: 'top',
+	        x: -100,
+	        y: 100,
+	        floating: true,
+	        borderWidth: 1,
+	        backgroundColor: '#FFFFFF',
+	        shadow: true
+	    },
+	    credits: {
+	        enabled: false
+	    },
+	    series: [{
+	        name: 'Media de pontos por Sprint',
+	        data: average
+	    }, {
+	        name: 'Total de pontos no BackLog',
+	        data: pointsInBacklog
+	    }, {
+	        name: 'Total de Sprints a fazer',
+	        data: sprintsToDo
+	    }]
+	});
+}
+
+
+

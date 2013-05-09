@@ -14,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.service.SprintService;
+import br.com.mystudies.service.statistically.StatisticallyService;
+import br.com.mystudies.service.statistically.Temp;
 
 import com.google.gson.Gson;
 
@@ -22,13 +24,18 @@ import com.google.gson.Gson;
 public class StatisticsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
+
 	@EJB
 	private SprintService sprintService;
-	
-	
-	private Gson gson; 
-	
+
+
+	@EJB
+	private StatisticallyService statisticallyService;
+
+
+	private Gson gson;
+
+
     public StatisticsServlet() {
         super();
         gson = new Gson();
@@ -36,24 +43,32 @@ public class StatisticsServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String getJSONSprints = request.getParameter("getJSONSprints");
-		
-		if( !StringUtils.isBlank(getJSONSprints)){			
+		String getJSONStemp = request.getParameter("getJSONStemp");
+
+		if( !StringUtils.isBlank(getJSONSprints)){
 			List<Sprint> sprints = sprintService.getAllSprints();
-			
-			for (Sprint sprint : sprints) {				
+
+			for (Sprint sprint : sprints) {
 				sprint.getStories().clear();
-			} 
-			
-			
+			}
 			response.getWriter().print(gson.toJson(sprints));
-			
-		}else{			
-			request.getRequestDispatcher("pages/statistics/statistics.jsp").forward(request, response);			
+
 		}
-		
-		
+
+		else if(!StringUtils.isBlank(getJSONStemp)){
+
+			List<Temp> temps = statisticallyService.get();
+			response.getWriter().print(gson.toJson(temps));
+		}
+
+		else{
+			request.getRequestDispatcher("pages/statistics/statistics.jsp").forward(request, response);
+		}
+
+
+
 	}
 
 

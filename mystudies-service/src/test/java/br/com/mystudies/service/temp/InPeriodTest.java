@@ -16,10 +16,13 @@ public class InPeriodTest {
 
 	@Test
 	public void shouldBeInPeriod() {
-		// period of 1 to 31 days in a month.
+
+
 		for (int i = 1; i <= 31; i++) {
-			assertThat( DateUtils.setDays(new Date(), i) , inPeriod(getMinDate(),getMaxDate()));
+			assertThat( DateUtils.setDays(new Date(), i) , inPeriod(getMonth()));
 		}
+
+
 	}
 
 
@@ -27,7 +30,7 @@ public class InPeriodTest {
 	@Test
 	public void shouldntBeInPeriod() {
 		// without of period, add 1 in actually month.
-		assertThat( DateUtils.addMonths(new Date(), 1) , not(inPeriod(getMinDate(),getMaxDate())));
+		assertThat( DateUtils.addMonths(new Date(), 1) , not(inPeriod(getMonth())));
 	}
 
 
@@ -38,12 +41,9 @@ public class InPeriodTest {
 
 	// >>>>>>>>> AUXILIARIES METHODS <<<<<<<<<<<<<
 
-	private Date getMinDate() {
-		return DateUtils.setDays(new Date(), 1);
-	}
 
 
-	private Date getMaxDate() {
+	private Date getMonth() {
 		return DateUtils.setDays(new Date(), 31);
 	}
 

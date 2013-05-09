@@ -12,7 +12,6 @@ import java.util.List;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -52,13 +51,13 @@ public class StatisticallyServiceBeanTest {
 
 
 
-	@Ignore
 	@Test
 	public void shouldReturnAverageOfPointsBySprints() throws Exception {
 
 		// 1 - media de pontos por sprint
 
 		when(sprintService.getAllSprints()).thenReturn(getSprints());
+		when(storyService.getStories(StoryStatus.BACKLOG)).thenReturn(getStories());
 
 
 		List<Temp> temps =
@@ -102,10 +101,30 @@ public class StatisticallyServiceBeanTest {
 		assertEquals(new Integer(140), temps.get(3).getPointsInBacklog());
 		assertEquals(new Integer(250), temps.get(4).getPointsInBacklog());
 
+	}
 
 
-		/*assertThat(temps, hasItems(50, 100, 120, 140, 250));*/
+	@Test
+	public void shouldReturnTotalOfSprintToDo() throws Exception {
 
+
+		// 2 - total de pontos no backlog no sprint // TODO em portugues o comentario ??
+
+		when(sprintService.getAllSprints()).thenReturn(getSprints());
+		when(storyService.getStories(StoryStatus.BACKLOG)).thenReturn(getStories());
+
+
+		List<Temp> temps = statisticallyService.get();
+
+		verify(sprintService).getAllSprints();
+		verify(storyService).getStories(StoryStatus.BACKLOG);
+
+
+		assertEquals(new Double(1.3), temps.get(0).getSprintsToDo());
+		assertEquals(new Double(4.4), temps.get(1).getSprintsToDo());
+		assertEquals(new Double(3.7), temps.get(2).getSprintsToDo());
+		assertEquals(new Double(4.1), temps.get(3).getSprintsToDo());
+		assertEquals(new Double(6.8), temps.get(4).getSprintsToDo());
 
 	}
 
@@ -180,6 +199,8 @@ public class StatisticallyServiceBeanTest {
 		stories.add(new Story(null, null, null, DateUtils.parseDate("15/11/2012", "dd/MM/yyyy"), 20 ));
 		stories.add(new Story(null, null, null, DateUtils.parseDate("30/11/2012", "dd/MM/yyyy"), 10 ));
 
+
+
 		return stories;
 	}
 
@@ -218,6 +239,7 @@ public class StatisticallyServiceBeanTest {
 		sprint.setId(5l);
 		sprint.setFinalDate(DateUtils.parseDate("30/11/2012", "dd/MM/yyyy"));
 		sprints.add(sprint);
+
 
 		return sprints;
 	}

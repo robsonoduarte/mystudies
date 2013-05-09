@@ -9,6 +9,10 @@ import static ch.lambdaj.Lambda.sumFrom;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
 import org.apache.commons.math3.util.Precision;
 
 import br.com.mystudies.domain.entity.Sprint;
@@ -17,39 +21,44 @@ import br.com.mystudies.domain.enun.StoryStatus;
 import br.com.mystudies.service.SprintService;
 import br.com.mystudies.service.StoryService;
 
-public class StatisticallyServiceBean {
+@Stateless
+@Remote(StatisticallyService.class)
+public class StatisticallyServiceBean  implements StatisticallyService{
 
 
 
-	/*@EJB*/
+	@EJB
 	private SprintService sprintService;
 
+	@EJB
 	private StoryService storyService;
 
+
+	// FIXME: ALFHA VERSION... BUT HAVE UNIT TEST...
+	@Override
 	public List<Temp> get() {
 
 		List<Sprint> sprints = sprintService.getAllSprints();
 		List<Story> stories = storyService.getStories(StoryStatus.BACKLOG);
 
 
+
 		double totalDonePooints = 0;
-		int totalPointBackLog = 0;
+
 
 		List<Temp> temps = new ArrayList<Temp>();
 
+
+
 		for (Sprint sprint : sprints) {
+
 
 			totalDonePooints += sprint.getDonePoints();
 
 			Temp temp = new Temp();
-			temp.setAverage(Precision.round(totalDonePooints / sprint.getId(), 1));
-
-
-
-			totalPointBackLog = totalPointBackLog + getPointsInBacklogInSprint(sprint,stories);
-
-
-			temp.setPointsInBacklog(totalPointBackLog);
+			temp.setAverage( Precision.round(totalDonePooints / sprint.getId(), 1));
+			temp.setPointsInBacklog(getPointsInBacklogInSprint(sprint,stories));
+			temp.setSprintsToDo(Precision.round(temp.getPointsInBacklog() / temp.getAverage(), 1) );
 
 			temps.add(temp);
 		}
@@ -62,8 +71,8 @@ public class StatisticallyServiceBean {
 
 
 	private Integer getPointsInBacklogInSprint(Sprint sprint,List<Story> stories) {
-		return sumFrom(select(stories,having(on(Story.class).getCreationDate(), inPeriod(sprint.getStartDate(),sprint.getFinalDate())))).getPoints();
+		return sumFrom(select(stories,having(on(Story.class).getCreationDate(), inPeriod(sprint.getFinalDate())))).getPoints();
 	}
-	
-	
+
+
 }

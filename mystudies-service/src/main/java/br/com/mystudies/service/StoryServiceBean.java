@@ -14,8 +14,6 @@ import br.com.mystudies.service.persistence.StoryDao;
 @Remote(StoryService.class)
 public class StoryServiceBean implements StoryService {
 
-	// test git
-	
 	@EJB
 	private StoryDao storyDao;
 
@@ -31,8 +29,7 @@ public class StoryServiceBean implements StoryService {
 	public Story updateStatusStory(Long storyID, StoryStatus storyStatus) {
 		// FIXME: validate parameters
 
-		Story story =
-				getStory(storyID);
+		Story story = getStory(storyID);
 
 
 		story.setStatus(storyStatus);
@@ -44,8 +41,9 @@ public class StoryServiceBean implements StoryService {
 
 	@Override
 	public List<Story> getStories(StoryStatus storyStatus) {
-		// TODO Auto-generated method stub
-		return null;
+		// FIXME: validate parameters
+		return storyDao.getStoriesByStatus(storyStatus);
 	}
+
 
 }
