@@ -1,14 +1,15 @@
 package br.com.mystudies.service.schedule;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 
-import org.junit.After;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -38,9 +39,6 @@ public class ScheduleSprintTest {
 	}
 
 
-	@After
-	public void tearDown() throws Exception {
-	}
 
 
 	/*
@@ -57,12 +55,7 @@ public class ScheduleSprintTest {
 	@Test
 	public void shouldntDoNothingWhenFinalDateNotExpired() {
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.roll(Calendar.DAY_OF_MONTH, 1); // rest one day for finish the sprint
-
-		Sprint sprint = new Sprint();
-		sprint.setFinalDate(calendar.getTime());
-		sprint.setSprintStatus(SprintStatus.RUNNING);
+		Sprint sprint = createSprint(1);
 
 		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(sprint);
 
@@ -70,8 +63,11 @@ public class ScheduleSprintTest {
 
 		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
 
-		assertEquals(SprintStatus.RUNNING, sprint.getSprintStatus());
+		assertThat(SprintStatus.RUNNING, equalTo(sprint.getSprintStatus()));
 	}
+
+
+
 
 
 	@Test
@@ -97,20 +93,8 @@ public class ScheduleSprintTest {
 		 *
 		 */
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.roll(Calendar.DAY_OF_MONTH, -1); // sprint finished
 
-		Sprint sprint = new Sprint();
-		sprint.setFinalDate(calendar.getTime());
-		sprint.setSprintStatus(SprintStatus.RUNNING);
-
-
-		sprint.setStories(new HashSet<Story>());
-		sprint.getStories().add(new Story("STORY 1", null, StoryStatus.DONE, null, 10));
-		sprint.getStories().add(new Story("STORY 2", null, StoryStatus.DONE, null, 10));
-		sprint.getStories().add(new Story("STORY 3", null, StoryStatus.DOING, null, 10)); // <<---
-		sprint.getStories().add(new Story("STORY 3", null, StoryStatus.DONE, null, 10));
-		sprint.getStories().add(new Story("STORY 4", null, StoryStatus.DOING, null, 10));// <<---
+		Sprint sprint = createSprint(-1);
 
 
 		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(sprint);
@@ -121,15 +105,19 @@ public class ScheduleSprintTest {
 		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
 		verify(sprintDao).update(sprint);
 
-		assertEquals(SprintStatus.FAIL, sprint.getSprintStatus());
-		assertEquals(new Long(30), sprint.getDonePoints());
+		assertThat(SprintStatus.FAIL, equalTo(sprint.getSprintStatus()));
+		assertThat(new Long(30), equalTo(sprint.getDonePoints()));
+
 
 		for (Story story : sprint.getStories()) {
 			if (story.getStatus() != StoryStatus.DONE) {
-				assertEquals(StoryStatus.BACKLOG, story.getStatus());
+				assertThat(StoryStatus.BACKLOG, equalTo(story.getStatus()));
 			}
 		}
+
 	}
+
+
 
 	@Test
 	public void shouldUpdateStatusSprintWhenSprintFailTwo() { // sprint with stories in to do
@@ -142,21 +130,8 @@ public class ScheduleSprintTest {
 		 *
 		 */
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.roll(Calendar.DAY_OF_MONTH, -1); // sprint finished
 
-		Sprint sprint = new Sprint();
-		sprint.setFinalDate(calendar.getTime());
-		sprint.setSprintStatus(SprintStatus.RUNNING);
-
-
-		sprint.setStories(new HashSet<Story>());
-		sprint.getStories().add(new Story("STORY 1", null, StoryStatus.DONE, null,10));
-		sprint.getStories().add(new Story("STORY 2", null, StoryStatus.DONE, null,10));
-		sprint.getStories().add(new Story("STORY 3", null, StoryStatus.TODO, null,10)); // <<---
-		sprint.getStories().add(new Story("STORY 3", null, StoryStatus.DONE, null,10));
-		sprint.getStories().add(new Story("STORY 4", null, StoryStatus.TODO, null,10));// <<---
-
+		Sprint sprint = createSprint(-1);
 
 		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(sprint);
 		when(sprintDao.update(sprint)).thenReturn(sprint);
@@ -166,12 +141,13 @@ public class ScheduleSprintTest {
 		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
 		verify(sprintDao).update(sprint);
 
-		assertEquals(SprintStatus.FAIL, sprint.getSprintStatus());
-		assertEquals(new Long(30), sprint.getDonePoints());
+		assertThat(SprintStatus.FAIL, equalTo(sprint.getSprintStatus()));
+		assertThat(new Long(30), equalTo(sprint.getDonePoints()));
+
 
 		for (Story story : sprint.getStories()) {
 			if (story.getStatus() != StoryStatus.DONE) {
-				assertEquals(StoryStatus.BACKLOG, story.getStatus());
+				assertThat(StoryStatus.BACKLOG, equalTo(story.getStatus()));
 			}
 		}
 	}
@@ -188,21 +164,17 @@ public class ScheduleSprintTest {
 		 *
 		 */
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.roll(Calendar.DAY_OF_MONTH, -1); // sprint finished
-
-		Sprint sprint = new Sprint();
-		sprint.setFinalDate(calendar.getTime());
-		sprint.setSprintStatus(SprintStatus.RUNNING);
 
 
 
+		Sprint sprint = createSprint(-1);
 		sprint.setStories(new HashSet<Story>());
 		sprint.getStories().add(new Story("STORY 1", null, StoryStatus.DONE, null,10));
 		sprint.getStories().add(new Story("STORY 2", null, StoryStatus.DONE, null,10));
 		sprint.getStories().add(new Story("STORY 3", null, StoryStatus.DONE, null,10)); // <<---
 		sprint.getStories().add(new Story("STORY 3", null, StoryStatus.DONE, null,10));
 		sprint.getStories().add(new Story("STORY 4", null, StoryStatus.DONE, null,10));// <<---
+
 
 
 		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(sprint);
@@ -213,9 +185,97 @@ public class ScheduleSprintTest {
 		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
 		verify(sprintDao).update(sprint);
 
-		assertEquals(SprintStatus.SUCCESS, sprint.getSprintStatus());
-		assertEquals(new Long(50), sprint.getDonePoints());
+		assertThat(SprintStatus.SUCCESS, equalTo(sprint.getSprintStatus()));
+		assertThat(new Long(50), equalTo(sprint.getDonePoints()));
 
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // >>>>>>>>>>>>>>> AUXILIARES METHODS <<<<<<<<<<<<<<<<<<
+
+	private Date getDate(int amount) {
+		return DateUtils.addDays(new Date(), amount);
+	}
+
+
+
+	private Sprint createSprint(int day) {
+
+		Sprint sprint = new Sprint();
+		sprint.setFinalDate(getDate(day));
+		sprint.setSprintStatus(SprintStatus.RUNNING);
+
+
+		sprint.setStories(new HashSet<Story>());
+		sprint.getStories().add(new Story("STORY 1", null, StoryStatus.DONE, null, 10));
+		sprint.getStories().add(new Story("STORY 2", null, StoryStatus.DONE, null, 10));
+		sprint.getStories().add(new Story("STORY 3", null, StoryStatus.DOING, null, 10));
+		sprint.getStories().add(new Story("STORY 3", null, StoryStatus.DONE, null, 10));
+		sprint.getStories().add(new Story("STORY 4", null, StoryStatus.DOING, null, 10));
+
+		return sprint;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
