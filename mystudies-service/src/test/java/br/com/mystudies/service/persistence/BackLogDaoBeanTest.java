@@ -1,3 +1,4 @@
+
 package br.com.mystudies.service.persistence;
 
 import org.junit.After;
