@@ -1,6 +1,13 @@
 package br.com.mystudies.service.statistically;
 
-public class Temp {
+import java.io.Serializable;
+
+public class Temp  implements Serializable{
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private Double average;
 	private Integer pointsInBacklog;
