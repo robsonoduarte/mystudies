@@ -79,10 +79,12 @@ public class SprintDaoBean implements SprintDao {
 
 
 		Root<Sprint> root =
-				criteriaQuery.from(Sprint.class);
+				criteriaQuery.from(Sprint.class)
+				;
 
 
-		criteriaQuery.select(root);
+		criteriaQuery.select(root)
+			.where(criteriaBuilder.notEqual(root.get("sprintStatus"), SprintStatus.RUNNING));
 
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
