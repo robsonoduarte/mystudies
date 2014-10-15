@@ -10,7 +10,7 @@ public class UserDaoTest {
 
 	
 	
-/*	@Mock
+	/*	@Mock
 	private EntityManager entityManager;
 	
 	
@@ -38,7 +38,7 @@ public class UserDaoTest {
 		
 	// prepareMocks();
 		
-//		User user = userDao.findUserByLogin(new User());
+	//User user = userDao.findUserByLogin(new User());
 		
 	//	assertThat(user, notNullValue());
 		

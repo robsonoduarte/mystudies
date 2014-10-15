@@ -2,28 +2,22 @@ package br.com.mystudies.service.data.request;
 
 import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+
+import java.io.Serializable;
+
 import br.com.mystudies.domain.entity.User;
 
+public final class LoginDataRequest implements Serializable{
 
-public final class LoginDataRequest {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 
 	private String email;
 	private String password;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	private LoginDataRequest() {}
@@ -36,42 +30,42 @@ public final class LoginDataRequest {
 		return new Builder();
 	}
 
-	
-	
+
+
 	public String getEmail() {
 		return email;
 	}
-	
-	
-	
+
+
+
 	public String getPassword() {
 		return sha1Hex(password);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// >>>>>>>>>>>>> BUILDER OF CLASS <<<<<<<<<<<<<<<<<<<<
-	
+
 	public static final class Builder{
 
-		
+
 		private LoginDataRequest loginDataRequest = new LoginDataRequest();
 
-		
+
 		private Builder() {}
 
 
@@ -80,13 +74,13 @@ public final class LoginDataRequest {
 			return this;
 		}
 
-		
+
 		public Builder password(String password) {
 			loginDataRequest.password = password;
 			return this;
 		}
 
-		
+
 		public LoginDataRequest create() {
 			validateState();
 			return loginDataRequest;
@@ -97,8 +91,8 @@ public final class LoginDataRequest {
 			if(isBlank(loginDataRequest.email ) || isBlank(loginDataRequest.password)){
 				throw new IllegalStateException("the email and password is mandatory");
 			}
-		}	
-		
+		}
+
 	}
 
 
@@ -108,10 +102,15 @@ public final class LoginDataRequest {
 	public User covertToUser() {
 		User user = new User();
 		user.setEmail(getEmail());
-		user.setPassWord(getPassword());		
+		user.setPassWord(getPassword());
 		return user;
 	}
 
 
-	
+
+	public static void 	main(String[] args) {
+		System.out.println(sha1Hex("programadorjava"));
+	}
+
+
 }

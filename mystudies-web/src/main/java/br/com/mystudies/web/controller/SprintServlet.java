@@ -66,9 +66,9 @@ public class SprintServlet extends HttpServlet {
 					sendToSprintsFragment(request, response);
 					break;
 			}*/
-			
+
 			if("NEWSPRINT".equals(action)){
-				
+
 				sendToSprintFormFragment(
 						request,
 						response,
@@ -76,7 +76,7 @@ public class SprintServlet extends HttpServlet {
 						);
 			}else if("CREATESPRINT".equals(action)){
 				sprintService.create(getSprint(request, response));
-				sendToSprintsFragment(request, response);				
+				sendToSprintsFragment(request, response);
 			}
 		}
 	}
