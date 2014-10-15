@@ -12,11 +12,8 @@ public class UserServiceBean implements UserService {
 	
 	
 	@Override
-	public User login(LoginDataRequest loginDataRequest) {
-		
-		
-		
-		return null;
+	public User login(LoginDataRequest loginDataRequest) {		
+		return userDao.findUserByLogin(loginDataRequest.covertToUser());
 	}
 
 	

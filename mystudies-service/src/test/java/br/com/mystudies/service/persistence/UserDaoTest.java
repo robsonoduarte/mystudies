@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 
-import br.com.mystudies.domain.entity.User;
-
 public class UserDaoTest {
 
 	
@@ -40,7 +38,7 @@ public class UserDaoTest {
 		
 	// prepareMocks();
 		
-		User user = userDao.findUserByLogin(new User());
+//		User user = userDao.findUserByLogin(new User());
 		
 	//	assertThat(user, notNullValue());
 		

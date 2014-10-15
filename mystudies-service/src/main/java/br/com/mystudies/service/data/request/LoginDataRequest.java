@@ -2,6 +2,7 @@ package br.com.mystudies.service.data.request;
 
 import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import br.com.mystudies.domain.entity.User;
 
 
 public final class LoginDataRequest {
@@ -102,6 +103,14 @@ public final class LoginDataRequest {
 
 
 
+
+
+	public User covertToUser() {
+		User user = new User();
+		user.setEmail(getEmail());
+		user.setPassWord(getPassword());		
+		return user;
+	}
 
 
 	
