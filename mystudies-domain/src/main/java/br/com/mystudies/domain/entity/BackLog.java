@@ -1,5 +1,6 @@
 package br.com.mystudies.domain.entity;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
