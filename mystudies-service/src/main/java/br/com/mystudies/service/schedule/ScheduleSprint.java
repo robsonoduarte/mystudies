@@ -31,7 +31,8 @@ public class ScheduleSprint {
 	private SprintDao sprintDao;
 
 
-	@Schedule(dayOfMonth="Last")
+	@Schedule(hour="*", minute="*")
+	
 	//@Schedule(hour="*", minute="*")
 	public void execute() {
 
