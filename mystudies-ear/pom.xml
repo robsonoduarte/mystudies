@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>mystudies</artifactId>
 		<groupId>br.com</groupId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.1.0-SNAPSHOT</version>
 		<relativePath>../mystudies</relativePath>
 	</parent>
 
@@ -17,18 +17,18 @@
   	<dependency>
   		<groupId>br.com</groupId>
   		<artifactId>mystudies-web</artifactId>
-  		<version>${parent.version}</version>
+  		<version>${project.parent.version}</version>
   		<type>war</type>
   	</dependency>
   	<dependency>
   		<groupId>br.com</groupId>
   		<artifactId>mystudies-domain</artifactId>
-  		<version>${parent.version}</version>
+  		<version>${project.parent.version}</version>
   	</dependency>
   	<dependency>
   		<groupId>br.com</groupId>
   		<artifactId>mystudies-service</artifactId>
-  		<version>${parent.version}</version>
+  		<version>${project.parent.version}</version>
   		<type>ejb</type>
   	</dependency>
   </dependencies>
