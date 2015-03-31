@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.domain.enun.SprintStatus;
 
+@Deprecated
 public interface SprintDao {
 
 	Sprint findSprintByStatus(SprintStatus sprintStatus);
