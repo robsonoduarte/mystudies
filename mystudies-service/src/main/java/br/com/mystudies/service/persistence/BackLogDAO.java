@@ -7,6 +7,7 @@ import br.com.mystudies.domain.entity.BackLog;
  *
  * @author Robson
  */
+@Deprecated
 public interface BackLogDAO {
 
 	/**

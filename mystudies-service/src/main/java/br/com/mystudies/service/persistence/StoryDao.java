@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.enun.StoryStatus;
 
+@Deprecated
 public interface StoryDao {
 
 	Story getStory(Long id);
