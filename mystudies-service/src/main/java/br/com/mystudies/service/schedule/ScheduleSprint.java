@@ -31,8 +31,8 @@ public class ScheduleSprint {
 	private SprintDao sprintDao;
 
 
-	@Schedule(month="*", dayOfMonth="Last")
-//	@Schedule(hour="0", minute="1")
+	@Schedule(dayOfMonth="Last")
+	//@Schedule(hour="*", minute="*")
 	public void execute() {
 
 		LOGGER.info("starting scheduling sprint");
