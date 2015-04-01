@@ -3,7 +3,7 @@ package br.com.mystudies.domain.entity;
 /**
  * @author Robson
  */
-public class Comment implements EntityBase{
+public class Comment implements Entity{
 
 	private static final long serialVersionUID = 1L;
 
