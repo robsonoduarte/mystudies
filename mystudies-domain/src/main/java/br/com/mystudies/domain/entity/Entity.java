@@ -6,6 +6,6 @@ import java.io.Serializable;
  * @author Robson
  *
  */
-public interface EntityBase extends Serializable {
+public interface Entity extends Serializable {
 
 }

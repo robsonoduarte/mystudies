@@ -1,4 +1,4 @@
-package br.com.mystudies.service.persistence;
+package br.com.mystudies.service.persistence.bean;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.enun.StoryStatus;
+import br.com.mystudies.service.persistence.StoryDao;
 
 @Stateless
 @Local(StoryDao.class)

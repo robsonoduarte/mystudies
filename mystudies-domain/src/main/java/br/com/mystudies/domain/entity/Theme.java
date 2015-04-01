@@ -16,7 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import br.com.mystudies.domain.enun.Priority;
@@ -25,8 +26,7 @@ import br.com.mystudies.domain.enun.Priority;
  * @author Robson
  */
 @Entity
-@Table(name="THEME")
-public class Theme implements EntityBase{
+public class Theme extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,14 +35,12 @@ public class Theme implements EntityBase{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="TITLE")
 	private String title;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="PRIORITY")
 	private Priority priority;
 
-	@Column(name="CREATION_DATE")
+	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 
 	@ManyToOne

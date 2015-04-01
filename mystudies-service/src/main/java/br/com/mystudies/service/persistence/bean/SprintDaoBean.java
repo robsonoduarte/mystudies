@@ -1,4 +1,4 @@
-package br.com.mystudies.service.persistence;
+package br.com.mystudies.service.persistence.bean;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 
 import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.domain.enun.SprintStatus;
+import br.com.mystudies.service.persistence.SprintDao;
 
 @Stateless
 @Local(SprintDao.class)

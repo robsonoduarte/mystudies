@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,15 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.com.mystudies.domain.enun.SprintStatus;
 
 @Entity
-@Table(name="SPRINT")
-public class Sprint implements EntityBase {
+public class Sprint extends BaseEntity {
 
 	/**
 	 *
@@ -30,26 +27,20 @@ public class Sprint implements EntityBase {
 
 
 	@Id
-	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="ESTIMATED_POINTS")
 	private Long estimatedPoints;
 
-	@Column(name="DONE_POINTS")
 	private Long donePoints;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="START_DATE")
 	private Date startDate;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="FINAL_DATE")
 	private Date finalDate;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="SPRINT_STATUS")
 	private SprintStatus sprintStatus;
 
 	@OneToMany(mappedBy="sprint", cascade = CascadeType.ALL, fetch=FetchType.EAGER) // FIXME: can't eager !!

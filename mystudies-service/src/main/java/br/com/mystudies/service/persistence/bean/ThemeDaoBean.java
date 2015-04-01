@@ -1,4 +1,4 @@
-package br.com.mystudies.service.persistence;
+package br.com.mystudies.service.persistence.bean;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.com.mystudies.domain.entity.Theme;
+import br.com.mystudies.service.persistence.ThemeDao;
 
 @Stateless
 @Local(ThemeDao.class)

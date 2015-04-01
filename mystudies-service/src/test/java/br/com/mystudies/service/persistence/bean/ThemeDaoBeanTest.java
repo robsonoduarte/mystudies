@@ -1,9 +1,11 @@
-package br.com.mystudies.service.persistence;
+package br.com.mystudies.service.persistence.bean;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import br.com.mystudies.service.persistence.bean.ThemeDaoBean;
 
 
 //TODO: TECHNICAL DEBT TO UNIT TEST TO PERSISTENCE CLASS.
