@@ -1,4 +1,4 @@
-package br.com.mystudies.service;
+package br.com.mystudies.service.bean;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.enun.StoryStatus;
+import br.com.mystudies.service.StoryService;
 import br.com.mystudies.service.persistence.StoryDao;
 
 @Stateless

@@ -1,4 +1,4 @@
-package br.com.mystudies.service;
+package br.com.mystudies.service.bean;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.enun.SprintStatus;
 import br.com.mystudies.domain.enun.StoryStatus;
+import br.com.mystudies.service.SprintService;
 import br.com.mystudies.service.persistence.SprintDao;
 
 @Stateless

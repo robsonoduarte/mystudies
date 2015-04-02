@@ -1,4 +1,4 @@
-package br.com.mystudies.service;
+package br.com.mystudies.service.bean;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.entity.Theme;
+import br.com.mystudies.service.ThemeService;
 import br.com.mystudies.service.persistence.ThemeDao;
 
 
