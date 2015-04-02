@@ -1,7 +1,7 @@
 /**
  *
  */
-package br.com.mystudies.service;
+package br.com.mystudies.service.bean;
 
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
@@ -21,6 +21,7 @@ import org.mockito.MockitoAnnotations;
 import br.com.mystudies.domain.entity.BackLog;
 import br.com.mystudies.domain.entity.Theme;
 import br.com.mystudies.domain.enun.Priority;
+import br.com.mystudies.service.bean.BackLogServiceBean;
 import br.com.mystudies.service.persistence.BackLogDAO;
 
 /**
