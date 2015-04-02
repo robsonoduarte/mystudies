@@ -1,4 +1,4 @@
-package br.com.mystudies.service;
+package br.com.mystudies.service.bean;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -11,6 +11,7 @@ import java.util.HashSet;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -57,6 +58,7 @@ public class ThemeServiceBeanTest {
 	
 	
 	@Test
+	@Ignore
 	public void shouldAddStoryInTheme() {
 		
 		Theme theme = new Theme();

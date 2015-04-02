@@ -11,6 +11,7 @@ import java.util.HashSet;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -153,6 +154,7 @@ public class ScheduleSprintTest {
 	}
 
 
+	@Ignore // we will refactoring to use Repository
 	@Test
 	public void shouldUpdateStatusSprintWhenSprintSucess() { // process
 
