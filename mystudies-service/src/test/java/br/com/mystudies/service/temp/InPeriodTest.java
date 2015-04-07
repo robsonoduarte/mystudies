@@ -20,7 +20,6 @@ public class InPeriodTest {
 		for (int i = 1; i <= 30; i++) {
 			assertThat( DateUtils.setDays(new Date(), i) , inPeriod(getMonth()));
 		}
-
 	}
 
 
