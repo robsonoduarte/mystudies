@@ -19,12 +19,9 @@ public class InPeriodTest {
 	@Test
 	public void shouldBeInPeriod() {
 
-
-		for (int i = 1; i <= 31; i++) {
+		for (int i = 1; i <= 30; i++) {
 			assertThat( DateUtils.setDays(new Date(), i) , inPeriod(getMonth()));
 		}
-
-
 	}
 
 
@@ -46,7 +43,7 @@ public class InPeriodTest {
 
 
 	private Date getMonth() {
-		return DateUtils.setDays(new Date(), 31);
+		return DateUtils.setDays(new Date(), 30);
 	}
 
 
