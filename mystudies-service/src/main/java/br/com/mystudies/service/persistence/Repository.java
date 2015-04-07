@@ -14,11 +14,11 @@ public interface Repository {
 		return t;
 	}
 
-	default Integer remove(String queryName, String code){
+	default Integer remove(String queryName, Long code){
 		return -1;
 	}
 
-	default <T extends Entity> T find(Class<T> entityClass, String code){
+	default <T extends Entity> T find(Class<T> entityClass, Long code){
 		return null;
 	}
 

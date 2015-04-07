@@ -3,26 +3,25 @@
  */
 package br.com.mystudies.service.bean;
 
+import static br.com.mystudies.domain.enun.Priority.HEIGHT;
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.Date;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import br.com.mystudies.domain.entity.BackLog;
 import br.com.mystudies.domain.entity.Theme;
-import br.com.mystudies.domain.enun.Priority;
-import br.com.mystudies.service.bean.BackLogServiceBean;
-import br.com.mystudies.service.persistence.BackLogDAO;
+import br.com.mystudies.service.BackLogService;
+import br.com.mystudies.service.persistence.Repository;
 
 /**
  * unit test to {@link BackLogServiceBean}
@@ -32,26 +31,22 @@ import br.com.mystudies.service.persistence.BackLogDAO;
  */
 public class BackLogServiceBeanTest {
 
-
+	
 	@InjectMocks
-	private BackLogServiceBean backLogServicebean;
+	private BackLogService backLogService;
 
-
+	
 	@Mock
-	private BackLogDAO backlogDAO;
+	private Repository repository;
 
+	
 
 	@Before
 	public void setUp() throws Exception {
-		backLogServicebean = new BackLogServiceBean();
-		MockitoAnnotations.initMocks(this);
+		backLogService = new BackLogServiceBean();
+		initMocks(this);
 	}
 
-
-	@After
-	public void tearDown() throws Exception {
-		backLogServicebean = null;
-	}
 
 
 	@Test
@@ -60,11 +55,11 @@ public class BackLogServiceBeanTest {
 		BackLog backLog = new BackLog();
 		Theme theme = new Theme();
 
-		when(backlogDAO.update(backLog)).thenReturn(backLog);
+		when(repository.save(backLog)).thenReturn(backLog);
 
-		backLog = backLogServicebean.addTheme(backLog, theme);
+		backLog = backLogService.addTheme(backLog, theme);
 
-		verify(backlogDAO).update(backLog);
+		verify(repository).save(backLog);
 
 		assertTrue(backLog.getThemes().contains(theme));
 		assertEquals(theme.getBackLog(), backLog);
@@ -72,23 +67,25 @@ public class BackLogServiceBeanTest {
 	}
 
 	
+	
 	@Test
 	public void shouldListThemesInBackLog() {
 
 		BackLog backLog = new BackLog();
-		backLog.addTheme(new Theme("theme1",Priority.HEIGHT,new Date()));
-		backLog.addTheme(new Theme("theme2",Priority.HEIGHT,new Date()));
-		backLog.addTheme(new Theme("theme3",Priority.HEIGHT,new Date()));
+		backLog.addTheme(new Theme("theme1",HEIGHT,new Date()));
+		backLog.addTheme(new Theme("theme2",HEIGHT,new Date()));
+		backLog.addTheme(new Theme("theme3",HEIGHT,new Date()));
 
 
-		when(backlogDAO.find(1L)).thenReturn(backLog);
+		when(repository.find(BackLog.class, 1L)).thenReturn(backLog);
 
-		backLog = backLogServicebean.getBackLog(1L);
+		backLog = backLogService.getBackLog(1L);
 
-		verify(backlogDAO).find(1L);
+		verify(repository).find(BackLog.class, 1L);
 
 		assertNotNull(backLog.getThemes().size());
 		assertEquals(3, backLog.getThemes().size());
 	}
 
+	
 }
