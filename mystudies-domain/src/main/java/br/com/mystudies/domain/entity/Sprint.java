@@ -1,6 +1,7 @@
 package br.com.mystudies.domain.entity;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,7 +31,7 @@ public class Sprint extends BaseEntity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
-	private Long estimatedPoints;
+	private Long estimatedPoints = new Long(0); // default points
 
 	private Long donePoints;
 
@@ -44,7 +45,7 @@ public class Sprint extends BaseEntity {
 	private SprintStatus sprintStatus;
 
 	@OneToMany(mappedBy="sprint", cascade = CascadeType.ALL, fetch=FetchType.EAGER) // FIXME: can't eager !!
-	private Set<Story> stories;
+	private Set<Story> stories = new HashSet<>(); // default stories
 
 
 	public Sprint() {

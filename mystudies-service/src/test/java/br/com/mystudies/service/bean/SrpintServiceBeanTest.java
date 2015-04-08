@@ -1,18 +1,20 @@
 package br.com.mystudies.service.bean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static br.com.mystudies.domain.enun.SprintStatus.RUNNING;
+import static br.com.mystudies.domain.enun.StoryStatus.BACKLOG;
+import static br.com.mystudies.domain.enun.StoryStatus.TODO;
+import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import org.junit.After;
@@ -23,10 +25,7 @@ import org.mockito.Mock;
 
 import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.domain.entity.Story;
-import br.com.mystudies.domain.enun.SprintStatus;
-import br.com.mystudies.domain.enun.StoryStatus;
-import br.com.mystudies.service.bean.SprintServiceBean;
-import br.com.mystudies.service.persistence.SprintDao;
+import br.com.mystudies.service.persistence.Repository;
 
 public class SrpintServiceBeanTest {
 
@@ -35,7 +34,7 @@ public class SrpintServiceBeanTest {
 
 
 	@Mock
-	private SprintDao sprintDao;
+	private Repository repository;
 
 
 	@Before
@@ -53,146 +52,114 @@ public class SrpintServiceBeanTest {
 
 	@Test
 	public void shouldReturnTrueWhileContainsSprintInRun() {
-
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(new Sprint());
-
-		boolean containsSprintInRun = sprintServiceBean.containsSprintInRun();
-
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
-
-		assertTrue(containsSprintInRun);
+		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(asList(new Sprint()));
+		assertThat(sprintServiceBean.containsSprintInRun(), not(false));
+		verify(repository).select("select-sprint-by-status", RUNNING);
 	}
 
+	
 
 
 	@Test
 	public void shouldReturnFalseWhileDontContainsSprintInRun() {
-
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(null);
-
-		boolean containsSprintInRun = sprintServiceBean.containsSprintInRun();
-
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
-
-		assertFalse(containsSprintInRun);
+		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(null);
+		assertThat(sprintServiceBean.containsSprintInRun(), not(true));
+		verify(repository).select("select-sprint-by-status", RUNNING);
 	}
+
 
 
 
 	@Test(expected=IllegalStateException.class)
 	public void shouldThrowExceptionWhenContainsSprintInRunning() {
-
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(new Sprint());
-
+		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(asList(new Sprint()));
 		sprintServiceBean.create(new Sprint());
-
 	}
+
+	
+	
 
 	@Test()
 	public void shouldCreateSprintWhenHaventSprintInRunning() {
 
-		Sprint sprint = new Sprint(
-				new Date(),
-				new Date(),
-				SprintStatus.RUNNING
-				);
+		Sprint sprint = new Sprint(new Date(),new Date(),RUNNING);
+		
+		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(null);
+		when(repository.save(any())).thenReturn(sprint);
 
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(null);
-		when(sprintDao.persist(any(Sprint.class) )).thenReturn(sprint);
-
-
-		sprint = sprintServiceBean.create(sprint);
-
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
-		verify(sprintDao).persist(sprint);
-
-		assertNotNull(sprint);
-		assertEquals(SprintStatus.RUNNING, sprint.getSprintStatus());
-		assertEquals(new Long(0), sprint.getEstimatedPoints());
-
-
+		assertThat(sprintServiceBean.create(sprint), notNullValue());
+		
+		verify(repository).select("select-sprint-by-status", RUNNING);
+		verify(repository).save(sprint);
 	}
 
-
+	
+	
 	@Test()
-	public void shouldReturnNullWhenHaventSprintInRunning() {
-
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(null);
-
-		Sprint sprint = sprintServiceBean.getCurrentSprint();
-
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
-
-		assertNull(sprint);
-
+	public void shouldReturnNullWhenHaventSprintInRunning() {		
+		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(null);
+		assertThat(sprintServiceBean.getCurrentSprint(), not(notNullValue()));
+		verify(repository).select("select-sprint-by-status", RUNNING);
 	}
 
+	
+	
 
 	@Test()
 	public void shouldReturnNullWhenHaveSprintInRunning() {
-
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(new Sprint());
-
-		Sprint sprint = sprintServiceBean.getCurrentSprint();
-
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
-
-		assertNotNull(sprint);
+		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(asList(new Sprint()));
+		assertThat(sprintServiceBean.getCurrentSprint(), notNullValue());
+		verify(repository).select("select-sprint-by-status", RUNNING);
 	}
 
 
+	
 	@Test(expected=IllegalStateException.class)
 	public void shouldThrowAExceptionWhenHaventSprintInRunning() {
-
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(null);
-
+		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(null);
 		sprintServiceBean.addStoryInSprint(new Story());
-
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
-
 	}
 
-
+	
+	
 	@Test()
 	public void shouldReturnSprintWithStoryWithStatusInSprint() {
 
 		Sprint sprint = new Sprint();
-		sprint.setStories(new HashSet<Story>());
 		sprint.setEstimatedPoints(new Long(3));
 
 		Story story = new Story();
-		story.setStatus(StoryStatus.BACKLOG);
+		story.setStatus(BACKLOG);
 		story.setPoints(3);
-
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(sprint);
-		when(sprintDao.update(sprint)).thenReturn(sprint);
+		
+		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(asList(sprint));
+		when(repository.save(sprint)).thenReturn(sprint);
 
 		sprint = sprintServiceBean.addStoryInSprint(story);
 
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
-		verify(sprintDao).update(sprint);
+		verify(repository).select("select-sprint-by-status", RUNNING);
+		verify(repository).save(sprint);
 
 		story = sprint.getStories().iterator().next();
 
-		assertEquals(StoryStatus.TODO, story.getStatus());
-		assertEquals(sprint, story.getSprint());
-		assertEquals(new Long(6), sprint.getEstimatedPoints());
-
+		assertThat(story.getStatus(), equalTo(TODO));
+		assertThat(story.getSprint(), equalTo(sprint));
+		assertThat(sprint.getEstimatedPoints(), equalTo(6L));
 	}
 
+	
+	
+	
 	@Test()
 	public void shouldReturnListAllSprint() {
-
-
-		when(sprintDao.listAll()).thenReturn(new ArrayList<Sprint>());
+		when(repository.select("select-all-sprint")).thenReturn(asList(new Sprint()));
 
 		List<Sprint> sprints =
 				sprintServiceBean.getAllSprints();
+		
+		verify(repository).select("select-all-sprint");
 
-		verify(sprintDao).listAll();
-
-		assertNotNull(sprints);
-
+		assertThat(sprints, hasSize(1));
 	}
 
 

@@ -68,10 +68,10 @@ public class RepositoryBeanTest {
 
 	@Test
 	public void shouldFindAnyThingThatIsOneEntityUsingTheMethodFindOFEntittyManager() {
-		when(entityManager.find(EntityForTest.class, "0001")).thenReturn(entityForTest);
+		when(entityManager.find(EntityForTest.class, 1L)).thenReturn(entityForTest);
 		EntityForTest entityForTest = repository.find(EntityForTest.class, 1L);
 		assertThat(entityForTest, notNullValue());
-		verify(entityManager).find(EntityForTest.class, "0001");
+		verify(entityManager).find(EntityForTest.class, 1L);
 	}
 
 
@@ -97,8 +97,7 @@ public class RepositoryBeanTest {
 		when(entityManager.createQuery(anyString())).thenReturn(query);
 		when(query.getResultList()).thenReturn(asList(new EntityForTest()));
 
-		List<EntityForTest> entitys =
-				repository.select("select-all-by-code", 1, 2 , 3 );
+		List<EntityForTest> entitys = repository.select("select-all-by-code", 1, 2 , 3 );
 
 		assertThat(entitys, not(equalTo(EMPTY_LIST)));
 
@@ -124,6 +123,5 @@ public class RepositoryBeanTest {
 		verify(query).getResultList();
 
 	}
-
-
+	
 }

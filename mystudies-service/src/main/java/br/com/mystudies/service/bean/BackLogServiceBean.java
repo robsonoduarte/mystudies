@@ -25,10 +25,10 @@ public class BackLogServiceBean implements BackLogService {
 	private Repository repository;
 
 
+	
 	@Override
 	public BackLog addTheme(BackLog backLog, Theme theme) {
-		// FIXME: validation with beans validation !! technical debt !
-		backLog.addTheme(theme);
+		backLog.addTheme(theme); 		// FIXME: validation with beans validation !! technical debt !
 		return repository.save(backLog);
 	}
 
@@ -36,9 +36,7 @@ public class BackLogServiceBean implements BackLogService {
 	
 	@Override
 	public BackLog getBackLog(long id) {
-/*		// FIXME: validate the parameters
-		return backLogDAO.find(id);*/
-		return null;
+		return repository.find(BackLog.class, id);
 	}
 
 }
