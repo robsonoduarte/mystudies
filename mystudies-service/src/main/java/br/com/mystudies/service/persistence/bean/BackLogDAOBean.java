@@ -1,11 +1,10 @@
-package br.com.mystudies.service.persistence;
+package br.com.mystudies.service.persistence.bean;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.com.mystudies.domain.entity.BackLog;
+import br.com.mystudies.service.persistence.BackLogDAO;
 
 /**
  * Implementation to {@link BackLogDAO} using technology EJB 3.1
@@ -13,8 +12,8 @@ import br.com.mystudies.domain.entity.BackLog;
  * @author Robson
  *
  */
-@Stateless
-@Local(BackLogDAO.class)
+/*@Stateless
+@Local(BackLogDAO.class)*/
 public class BackLogDAOBean  implements BackLogDAO{
 
 	@PersistenceContext

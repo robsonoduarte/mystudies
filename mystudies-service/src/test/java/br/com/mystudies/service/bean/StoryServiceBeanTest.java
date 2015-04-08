@@ -1,4 +1,4 @@
-package br.com.mystudies.service;
+package br.com.mystudies.service.bean;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -18,6 +18,7 @@ import org.mockito.Mock;
 
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.enun.StoryStatus;
+import br.com.mystudies.service.bean.StoryServiceBean;
 import br.com.mystudies.service.persistence.StoryDao;
 
 public class StoryServiceBeanTest {

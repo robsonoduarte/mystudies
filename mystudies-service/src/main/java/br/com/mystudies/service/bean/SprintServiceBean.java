@@ -1,4 +1,8 @@
-package br.com.mystudies.service;
+package br.com.mystudies.service.bean;
+
+import static br.com.mystudies.domain.enun.SprintStatus.RUNNING;
+import static br.com.mystudies.domain.enun.StoryStatus.TODO;
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 import java.util.List;
 
@@ -8,9 +12,8 @@ import javax.ejb.Stateless;
 
 import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.domain.entity.Story;
-import br.com.mystudies.domain.enun.SprintStatus;
-import br.com.mystudies.domain.enun.StoryStatus;
-import br.com.mystudies.service.persistence.SprintDao;
+import br.com.mystudies.service.SprintService;
+import br.com.mystudies.service.persistence.Repository;
 
 @Stateless
 @Remote(SprintService.class)
@@ -18,42 +21,44 @@ public class SprintServiceBean implements SprintService{
 
 
 	@EJB
-	private SprintDao sprintDao;
+	private Repository repository;
 
 
+	
+	
 	@Override
 	public boolean containsSprintInRun() {
-
-		if( getCurrentSprint() != null){
-			return true;
-		}
-
-		return false;
+		return getCurrentSprint() != null;  
 	}
 
+	
+	
+	@Override
+	public Sprint getCurrentSprint(){
+		List<Sprint> sprints = 
+				repository.select("select-sprint-by-status", RUNNING);
+		return isNotEmpty(sprints) ? sprints.get(0) : null;
+	}
 
+	
+	
 
+	
+	
 	@Override
 	public Sprint create(Sprint sprint) {
-
 		if(containsSprintInRun())
 			throw new IllegalStateException("Contains sprint in running");
 
-		// FIXME: validate parameters
-		sprint.setEstimatedPoints(new Long(0));
-
-		return sprintDao.persist(sprint);
+		return repository.save(sprint);
 	}
 
 
 
 
-	@Override
-	public Sprint getCurrentSprint() {
-		return sprintDao.findSprintByStatus(SprintStatus.RUNNING);
-	}
 
 
+	
 	@Override
 	public Sprint addStoryInSprint(Story story) {
 
@@ -66,21 +71,22 @@ public class SprintServiceBean implements SprintService{
 
 		sprint.getStories().add(story);
 		sprint.setEstimatedPoints(sprint.getEstimatedPoints() + story.getPoints());
-
+		
 		story.setSprint(sprint);
-		story.setStatus(StoryStatus.TODO);
+		story.setStatus(TODO);
 
-
-		return sprintDao.update(sprint);
+		return repository.save(sprint);
 	}
 
 
 
+	
 	@Override
 	public List<Sprint> getAllSprints() {
-		return sprintDao.listAll();
+		return repository.select("select-all-sprint");
 	}
 
 
+	
 }
 

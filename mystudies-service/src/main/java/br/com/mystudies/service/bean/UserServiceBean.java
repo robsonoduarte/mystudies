@@ -1,10 +1,11 @@
-package br.com.mystudies.service;
+package br.com.mystudies.service.bean;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import br.com.mystudies.domain.entity.User;
+import br.com.mystudies.service.UserService;
 import br.com.mystudies.service.data.request.LoginDataRequest;
 import br.com.mystudies.service.persistence.UserDao;
 

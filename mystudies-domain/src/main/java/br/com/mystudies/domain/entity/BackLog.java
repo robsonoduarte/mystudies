@@ -5,26 +5,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
-// teste branch 2.0.0
+
 /**
  * @author Robson
  */
 @Entity
-@Table(name="BACKLOG")
-public class BackLog implements EntityBase{
+public class BackLog extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
 
 
 	@Id
-	@Column(name="ID")
 	private Long id;
 
 

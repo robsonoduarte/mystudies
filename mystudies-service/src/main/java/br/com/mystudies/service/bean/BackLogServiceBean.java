@@ -1,4 +1,4 @@
-package br.com.mystudies.service;
+package br.com.mystudies.service.bean;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -6,7 +6,8 @@ import javax.ejb.Stateless;
 
 import br.com.mystudies.domain.entity.BackLog;
 import br.com.mystudies.domain.entity.Theme;
-import br.com.mystudies.service.persistence.BackLogDAO;
+import br.com.mystudies.service.BackLogService;
+import br.com.mystudies.service.persistence.Repository;
 
 /**
  * Implementation to {@link BackLogService} using technology EJB 3.1
@@ -19,25 +20,23 @@ import br.com.mystudies.service.persistence.BackLogDAO;
 @Remote(BackLogService.class)
 public class BackLogServiceBean implements BackLogService {
 
+
 	@EJB
-	private BackLogDAO backLogDAO;
+	private Repository repository;
 
 
+	
 	@Override
 	public BackLog addTheme(BackLog backLog, Theme theme) {
-	
-		// FIXME: validation with beans validation !! technical debt !
-		backLog.addTheme(theme);
-		return backLogDAO.update(backLog);
-		
-		
+		backLog.addTheme(theme); 		// FIXME: validation with beans validation !! technical debt !
+		return repository.save(backLog);
 	}
 
 
+	
 	@Override
 	public BackLog getBackLog(long id) {
-		// FIXME: validate the parameters
-		return backLogDAO.find(id);
+		return repository.find(BackLog.class, id);
 	}
 
 }
