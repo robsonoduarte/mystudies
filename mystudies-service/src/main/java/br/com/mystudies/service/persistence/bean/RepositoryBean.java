@@ -17,10 +17,8 @@ import br.com.mystudies.service.persistence.Repository;
 
 
 
-
-
-@Local(Repository.class)
 @Stateless
+@Local(Repository.class)
 public class RepositoryBean implements Repository {
 
 
@@ -35,15 +33,14 @@ public class RepositoryBean implements Repository {
 
 	@Override
 	public <T extends Entity>  T save(T t) {
-		entityManager.merge(t);
-		return t;
+		return entityManager.merge(t);
 	}
 
 
 	@Override
-	public Integer remove(String queryName, String code) {
+	public Integer remove(String queryName, Long id) {
 		Query query = createQuery(queryName);
-		query.setParameter(1, code);
+		query.setParameter(1, id);
 		return query.executeUpdate();
 	}
 
@@ -52,8 +49,8 @@ public class RepositoryBean implements Repository {
 
 
 	@Override
-	public <T extends Entity> T find(Class<T> entityClass, String code) {
-		return entityManager.find(entityClass , code);
+	public <T extends Entity> T find(Class<T> entityClass, Long id) {
+		return entityManager.find(entityClass , id);
 	}
 
 

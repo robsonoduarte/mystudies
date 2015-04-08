@@ -2,8 +2,6 @@ package br.com.mystudies.service.persistence.bean;
 
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,8 +12,8 @@ import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.enun.StoryStatus;
 import br.com.mystudies.service.persistence.StoryDao;
 
-@Stateless
-@Local(StoryDao.class)
+/*@Stateless
+@Local(StoryDao.class)*/
 public class StoryDaoBean implements StoryDao {
 
 
