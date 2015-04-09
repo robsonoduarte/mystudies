@@ -1,25 +1,21 @@
 package br.com.mystudies.service.bean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
-import java.util.HashSet;
-
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.entity.Theme;
-import br.com.mystudies.service.persistence.ThemeDao;
+import br.com.mystudies.service.persistence.Repository;
 
 public class ThemeServiceBeanTest {
 
@@ -27,52 +23,42 @@ public class ThemeServiceBeanTest {
 	@InjectMocks
 	private ThemeServiceBean themeServiceBean;
 
-
 	@Mock
-	private ThemeDao themeDao;
+	private Repository repository;
 
 	
 	@Before
 	public void setUp() throws Exception {
 		themeServiceBean = new ThemeServiceBean();
-		MockitoAnnotations.initMocks(this);
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		themeServiceBean = null;
+		initMocks(this);
 	}
 
 
+	
 	@Test
 	public void shouldGetThemeByID() {
-
-		when(themeDao.find(any(Long.class))).thenReturn(new Theme());
-
-		Theme theme = themeServiceBean.getTheme(1L);
-
-		verify(themeDao).find(1L);
-
-		assertNotNull(theme);
+		when(repository.find(Theme.class, 1L)).thenReturn(new Theme());
+		assertThat(themeServiceBean.getTheme(1L), notNullValue());
+		verify(repository).find(Theme.class, 1L);
 	}
 	
 	
+	
+	
+	
+	
 	@Test
-	@Ignore
 	public void shouldAddStoryInTheme() {
-		
+			
 		Theme theme = new Theme();
-		theme.setStories(new HashSet<Story>());
-		Story story = new Story();
 		
-		when(themeDao.update(theme)).thenReturn(theme);
+		when(repository.save(any())).thenReturn(theme);
 		
-		themeServiceBean.addStory(theme, story);
+		theme = themeServiceBean.addStory(theme, new Story());
+		assertThat(theme.getStories(), hasSize(1)); 
 		
-		verify(themeDao).update(theme);
+		verify(repository).save(any());
 		
-		assertTrue(theme.getStories().contains(story));
-		assertEquals(theme, story.getTheme());
 		
 	}
 	

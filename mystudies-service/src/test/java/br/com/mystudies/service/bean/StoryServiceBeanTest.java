@@ -1,25 +1,28 @@
 package br.com.mystudies.service.bean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.any;
+import static br.com.mystudies.domain.enun.StoryStatus.BACKLOG;
+import static br.com.mystudies.domain.enun.StoryStatus.DOING;
+import static br.com.mystudies.domain.enun.StoryStatus.TODO;
+import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import br.com.mystudies.domain.entity.Entity;
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.enun.StoryStatus;
-import br.com.mystudies.service.bean.StoryServiceBean;
-import br.com.mystudies.service.persistence.StoryDao;
+import br.com.mystudies.service.persistence.Repository;
 
 public class StoryServiceBeanTest {
 
@@ -29,8 +32,8 @@ public class StoryServiceBeanTest {
 
 
     @Mock
-    private StoryDao storyDao;
-
+    private Repository repository;
+    
 
     @Before
     public void setUp() throws Exception {
@@ -39,67 +42,41 @@ public class StoryServiceBeanTest {
     }
 
 
-    @After
-    public void tearDown() throws Exception {
-        storyServiceBean = null;
-    }
-
 
     @Test
     public void shouldGetThemeByID() {
-
-        when(storyDao.getStory(any(Long.class))).thenReturn(new Story());
-
-        Story story = storyServiceBean.getStory(1L);
-
-        verify(storyDao).getStory(1L);
-
-        assertNotNull(story);
+    	when(repository.select("select-story-by-id", 1L)).thenReturn(asList(new Story()));    	
+    	assertThat(storyServiceBean.getStory(1L), notNullValue());
+    	verify(repository).select("select-story-by-id", 1L);
     }
 
-
+    
+    
+   
     @Test
     public void shouldUpdateStatusStory() {
-
-    	Story story =
-    			new Story(null,null, StoryStatus.TODO, null, null);
-
-    	when(storyDao.getStory(any(Long.class))).thenReturn(story);
-    	when(storyDao.update(story)).thenReturn(story);
-
-
-         story = storyServiceBean.updateStatusStory(1L, StoryStatus.DOING);
-
-
-        verify(storyDao).getStory(1L);
-        verify(storyDao).update(story);
-
-
-        assertEquals(StoryStatus.DOING, story.getStatus());
-
-
-
-/*		when(storyDao.getStory(any(Long.class))).thenReturn(new Story());
-
-        Story story = storyServiceBean.getStory(1L);
-
-        verify(storyDao).getStory(1L);
-
-        assertNotNull(story);*/
+    	
+    	Story story = new Story(null,null, TODO, null, null);
+    	
+    	when(repository.select("select-story-by-id", 1L)).thenReturn(asList(story));    	
+    	when(repository.save(story)).thenReturn(new Story(null,null, DOING, null, null));
+    	
+        assertThat(storyServiceBean.updateStatusStory(1L, DOING).getStatus(), equalTo(DOING));
+        
+        verify(repository).select("select-story-by-id", 1L);
+        verify(repository).save(story);
     }
 
+
+    
+    
 
 
     @Test
     public void shouldGetStoriesByStatus() {
-
-    	when(storyDao.getStoriesByStatus(any(StoryStatus.class))).thenReturn(geStories());
-
-    	List<Story> stories = storyServiceBean.getStories(StoryStatus.BACKLOG);
-
-    	verify(storyDao).getStoriesByStatus(StoryStatus.BACKLOG);
-
-    	assertNotNull(stories);
+    	when(repository.select("select-story-by-status", BACKLOG)).thenReturn(geStories());    	
+    	assertThat(storyServiceBean.getStories(StoryStatus.BACKLOG), hasSize(6));
+    	verify(repository).select("select-story-by-status", BACKLOG);
     }
 
 
@@ -129,23 +106,17 @@ public class StoryServiceBeanTest {
 
 
 
-
-	private List<Story> geStories() {
-		List<Story> stories = new ArrayList<Story>();
-		Story story = new Story();
-		stories.add(story);
-		story = new Story();
-		stories.add(story);
-		story = new Story();
-		stories.add(story);
-		story = new Story();
-		stories.add(story);
-		story = new Story();
-		stories.add(story);
-		return stories;
+    // ->>>>>>>>>>>>>>> METHODS AUXILIARES <<<<<<<<<<<<<<<<<<-
+	private List<Entity> geStories() {
+		return asList(
+				new Story(),
+				new Story(),
+				new Story(),
+				new Story(),
+				new Story(),
+				new Story()
+			);
 	}
-
-
 
 
 }
