@@ -2,6 +2,8 @@ package br.com.mystudies.service.persistence.bean;
 
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -13,8 +15,8 @@ import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.domain.enun.SprintStatus;
 import br.com.mystudies.service.persistence.SprintDao;
 
-/*@Stateless
-@Local(SprintDao.class)*/
+@Stateless
+@Local(SprintDao.class)
 public class SprintDaoBean implements SprintDao {
 
 

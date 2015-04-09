@@ -1,13 +1,13 @@
 package br.com.mystudies.service.bean;
 
 import javax.ejb.EJB;
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.entity.Theme;
 import br.com.mystudies.service.ThemeService;
-import br.com.mystudies.service.persistence.ThemeDao;
+import br.com.mystudies.service.persistence.Repository;
 
 
 /**
@@ -15,23 +15,25 @@ import br.com.mystudies.service.persistence.ThemeDao;
  *
  */
 @Stateless
-@Remote(ThemeService.class)
+@Local(ThemeService.class)
 public class ThemeServiceBean implements ThemeService{
 
 	@EJB
-	private ThemeDao themeDao;
+	private Repository repository;
 
 	
 	@Override
 	public Theme getTheme(Long themeId) {
-		return themeDao.find(themeId);
+		return repository.find(Theme.class ,themeId);
 	}
 
+	
 	@Override
 	public Theme addStory(Theme theme, Story story) {
 		theme.getStories().add(story);
 		story.setTheme(theme);
-		return themeDao.update(theme);
+		return repository.save(theme);
 	}
 
+	
 }

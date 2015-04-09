@@ -5,8 +5,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.io.Serializable;
 
-import br.com.mystudies.domain.entity.User;
-
 public final class LoginDataRequest implements Serializable{
 
 	/**
@@ -98,18 +96,16 @@ public final class LoginDataRequest implements Serializable{
 
 
 
-
-	public User covertToUser() {
-		User user = new User();
-		user.setEmail(getEmail());
-		user.setPassWord(getPassword());
-		return user;
+	public static void 	main(String[] args) {
+		System.out.println(sha1Hex("programadorjava"));
 	}
 
 
 
-	public static void 	main(String[] args) {
-		System.out.println(sha1Hex("programadorjava"));
+
+
+	public Object[] toArray() {
+		return new String[]{email, sha1Hex(password)};
 	}
 
 

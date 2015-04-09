@@ -60,7 +60,7 @@ public class RepositoryBean implements Repository {
 		Query query = createQuery(queryName);
 
 		for (Object parameter : parameters) {
-			query.setParameter(indexOf(parameters, parameter), parameter);
+			query.setParameter(indexOf(parameters, parameter) + 1, parameter);
 		}
 
 		return query.getResultList(); //FIXME: verificar a anotações para suprir esse aviso
