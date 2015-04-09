@@ -1,6 +1,7 @@
 package br.com.mystudies.domain.entity;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +49,7 @@ public class Theme extends BaseEntity{
 	private BackLog backLog;
 
 	@OneToMany(mappedBy="theme", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	private Set<Story> stories;
+	private Set<Story> stories = new HashSet<>(); // default empyt set
 
 	@Transient // not implemented
 	private List<Comment> comments;
@@ -162,7 +163,5 @@ public class Theme extends BaseEntity{
 			return false;
 		return true;
 	}
-
-
 
 }

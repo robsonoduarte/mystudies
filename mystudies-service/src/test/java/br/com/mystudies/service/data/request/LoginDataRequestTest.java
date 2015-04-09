@@ -1,11 +1,10 @@
 package br.com.mystudies.service.data.request;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItemInArray;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-
-import br.com.mystudies.domain.entity.User;
 
 public class LoginDataRequestTest {
 
@@ -64,10 +63,10 @@ public class LoginDataRequestTest {
 				.password("abc@123")
 				.create();
 		
-		User user = loginDataRequest.covertToUser();
+		Object[] objects = loginDataRequest.toArray();
 		
-		assertThat(user.getEmail(), equalTo("robson.o.d@gmail.com"));
-		assertThat(user.getPassword(), equalTo("ddac418a1be76098d01107464026f65d2a3192bf"));
+		assertThat(objects, hasItemInArray("robson.o.d@gmail.com"));
+		assertThat(objects, hasItemInArray("ddac418a1be76098d01107464026f65d2a3192bf"));
 		
 	}
 	

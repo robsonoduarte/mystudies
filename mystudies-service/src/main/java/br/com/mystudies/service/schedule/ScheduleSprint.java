@@ -32,7 +32,7 @@ public class ScheduleSprint {
 
 
 	
-	@Schedule(dayOfMonth="Last")
+	@Schedule(hour="*")
 	public void execute() {
 
 		LOGGER.info("starting scheduling sprint");

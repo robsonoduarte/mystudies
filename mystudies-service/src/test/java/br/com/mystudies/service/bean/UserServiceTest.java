@@ -1,9 +1,10 @@
 package br.com.mystudies.service.bean;
 
 
+import static java.util.Arrays.asList;
+import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -15,20 +16,19 @@ import org.mockito.Mock;
 
 import br.com.mystudies.domain.entity.User;
 import br.com.mystudies.service.UserService;
-import br.com.mystudies.service.bean.UserServiceBean;
 import br.com.mystudies.service.data.request.LoginDataRequest;
-import br.com.mystudies.service.persistence.UserDao;
+import br.com.mystudies.service.persistence.Repository;
 
 public class UserServiceTest {
 
-	@Mock
-	private UserDao UserDao;
 	
 	
 	@InjectMocks
 	private UserService userService;
 
-
+	@Mock
+	private Repository repository;
+	
 
 	@Before
 	public void setUp() throws Exception {
@@ -42,7 +42,7 @@ public class UserServiceTest {
 	@Test
 	public void test1() {
 		
-		when(UserDao.findUserByLogin(any(User.class))).thenReturn(new User());
+		when(repository.select("select-user-by-login", "robson.o.d@gmail.com", sha1Hex("abc@123"))).thenReturn(asList(new User()));
 		
 		User user =  
 			userService.login(
@@ -52,10 +52,9 @@ public class UserServiceTest {
 					.create()
 			);
 		
-		
 		assertThat(user, notNullValue());
 		
-		verify(UserDao).findUserByLogin(any(User.class));
+		verify(repository).select("select-user-by-login", "robson.o.d@gmail.com", sha1Hex("abc@123"));
 	}
 	
 	
