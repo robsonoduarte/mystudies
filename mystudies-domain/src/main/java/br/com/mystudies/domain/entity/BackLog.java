@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 
 /**
  * @author Robson
- * 
  */
 @Entity
 public class BackLog extends BaseEntity{
