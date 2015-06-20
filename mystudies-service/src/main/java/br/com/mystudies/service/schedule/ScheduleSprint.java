@@ -11,7 +11,6 @@ import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.enun.SprintStatus;
 import br.com.mystudies.domain.enun.StoryStatus;
-import br.com.mystudies.service.persistence.SprintDao;
 
 @Singleton
 public class ScheduleSprint {
@@ -26,13 +25,13 @@ public class ScheduleSprint {
 	private Logger LOGGER = Logger.getLogger(this.getClass().getName());
 
 	/*@EJB*/
-	private SprintDao sprintDao;
+	/*private SprintDao sprintDao;*/
 
 
 	
 /*	@Schedule(hour="*")*/
 	public void execute() {
-
+/*
 		LOGGER.info("starting scheduling sprint");
 
 		Sprint sprint =
@@ -49,7 +48,7 @@ public class ScheduleSprint {
 				sprintDao.update(sprint);
 			}
 		}
-		LOGGER.info("finishing scheduling sprint");
+		LOGGER.info("finishing scheduling sprint");*/
 	}
 
 
