@@ -13,7 +13,7 @@ import javax.ejb.Stateless;
 import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.service.SprintService;
-import br.com.mystudies.service.persistence.Repository;
+import br.com.r3wa.fiscalpackage.persistence.Repository;
 
 @Stateless
 @Remote(SprintService.class)

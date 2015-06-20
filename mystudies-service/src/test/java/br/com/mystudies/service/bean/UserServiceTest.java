@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import br.com.mystudies.domain.entity.User;
 import br.com.mystudies.service.UserService;
 import br.com.mystudies.service.data.request.LoginDataRequest;
-import br.com.mystudies.service.persistence.Repository;
+import br.com.r3wa.fiscalpackage.persistence.Repository;
 
 public class UserServiceTest {
 

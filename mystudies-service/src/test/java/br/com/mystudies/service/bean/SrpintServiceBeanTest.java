@@ -25,7 +25,7 @@ import org.mockito.Mock;
 
 import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.domain.entity.Story;
-import br.com.mystudies.service.persistence.Repository;
+import br.com.r3wa.fiscalpackage.persistence.Repository;
 
 public class SrpintServiceBeanTest {
 

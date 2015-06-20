@@ -18,7 +18,7 @@ import org.mockito.Mock;
 import br.com.mystudies.domain.entity.BackLog;
 import br.com.mystudies.domain.entity.Theme;
 import br.com.mystudies.service.BackLogService;
-import br.com.mystudies.service.persistence.Repository;
+import br.com.r3wa.fiscalpackage.persistence.Repository;
 
 /**
  * unit test to {@link BackLogServiceBean}

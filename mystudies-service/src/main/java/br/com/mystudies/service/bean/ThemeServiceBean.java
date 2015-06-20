@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.entity.Theme;
 import br.com.mystudies.service.ThemeService;
-import br.com.mystudies.service.persistence.Repository;
+import br.com.r3wa.fiscalpackage.persistence.Repository;
 
 
 /**
