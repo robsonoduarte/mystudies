@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import javax.ejb.EJB;
-import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 
 import br.com.mystudies.domain.entity.Sprint;
@@ -27,12 +25,12 @@ public class ScheduleSprint {
 	// FIXME: choice the best log for app AND LOGGING ONLY IN DEBUG MODE.
 	private Logger LOGGER = Logger.getLogger(this.getClass().getName());
 
-	@EJB
+	/*@EJB*/
 	private SprintDao sprintDao;
 
 
 	
-	@Schedule(hour="*")
+/*	@Schedule(hour="*")*/
 	public void execute() {
 
 		LOGGER.info("starting scheduling sprint");
