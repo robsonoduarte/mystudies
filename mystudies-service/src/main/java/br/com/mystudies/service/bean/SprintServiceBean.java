@@ -2,7 +2,6 @@ package br.com.mystudies.service.bean;
 
 import static br.com.mystudies.domain.enun.SprintStatus.RUNNING;
 import static br.com.mystudies.domain.enun.StoryStatus.TODO;
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 import java.util.List;
 
@@ -24,27 +23,25 @@ public class SprintServiceBean implements SprintService{
 	private Repository repository;
 
 
-	
-	
+
+
 	@Override
 	public boolean containsSprintInRun() {
-		return getCurrentSprint() != null;  
+		return getCurrentSprint() != null;
 	}
 
-	
-	
+
+
 	@Override
 	public Sprint getCurrentSprint(){
-		List<Sprint> sprints = 
-				repository.select("select-sprint-by-status", RUNNING);
-		return isNotEmpty(sprints) ? sprints.get(0) : null;
+		return repository.selectOne("sprint-by-status", RUNNING);
 	}
 
-	
-	
 
-	
-	
+
+
+
+
 	@Override
 	public Sprint create(Sprint sprint) {
 		if(containsSprintInRun())
@@ -58,7 +55,7 @@ public class SprintServiceBean implements SprintService{
 
 
 
-	
+
 	@Override
 	public Sprint addStoryInSprint(Story story) {
 
@@ -71,7 +68,7 @@ public class SprintServiceBean implements SprintService{
 
 		sprint.getStories().add(story);
 		sprint.setEstimatedPoints(sprint.getEstimatedPoints() + story.getPoints());
-		
+
 		story.setSprint(sprint);
 		story.setStatus(TODO);
 
@@ -80,13 +77,13 @@ public class SprintServiceBean implements SprintService{
 
 
 
-	
+
 	@Override
 	public List<Sprint> getAllSprints() {
-		return repository.select("select-all-sprint");
+		return repository.select("all-sprint");
 	}
 
 
-	
+
 }
 

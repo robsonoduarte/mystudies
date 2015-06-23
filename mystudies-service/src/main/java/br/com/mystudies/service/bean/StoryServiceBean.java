@@ -1,7 +1,5 @@
 package br.com.mystudies.service.bean;
 
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
-
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -20,17 +18,15 @@ public class StoryServiceBean implements StoryService {
 
 	@EJB
 	private Repository repository;
-	
-	
-	
+
+
+
 	@Override
 	public Story getStory(Long id) {
-		// FIXME: validate parameters
-		List<Story> storyies = repository.select("select-story-by-id", id);
-		return isNotEmpty(storyies) ? storyies.get(0) : null ;
+		return repository.selectOne("story-by-id", id) ;
 	}
 
-	
+
 
 	@Override
 	public Story updateStatusStory(Long id, StoryStatus status) {
@@ -41,11 +37,11 @@ public class StoryServiceBean implements StoryService {
 	}
 
 
-	
+
 	@Override
 	public List<Story> getStories(StoryStatus storyStatus) {
 		// FIXME: validate parameters
-		return repository.select("select-story-by-status", storyStatus);
+		return repository.select("story-by-status", storyStatus);
 	}
 
 

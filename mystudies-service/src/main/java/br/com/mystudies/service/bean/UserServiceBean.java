@@ -1,9 +1,5 @@
 package br.com.mystudies.service.bean;
 
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
-
-import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -24,8 +20,7 @@ public class UserServiceBean implements UserService {
 	
 	@Override
 	public User login(LoginDataRequest loginDataRequest) {
-		List<User> users = repository.select("select-user-by-login", loginDataRequest.toArray());
-		return isNotEmpty(users) ? users.get(0) : null;
+		return repository.selectOne("user-by-login", loginDataRequest.toArray());
 	}
 
 	
