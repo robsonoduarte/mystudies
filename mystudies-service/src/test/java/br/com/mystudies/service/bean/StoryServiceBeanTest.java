@@ -33,7 +33,7 @@ public class StoryServiceBeanTest {
 
     @Mock
     private Repository repository;
-    
+
 
     @Before
     public void setUp() throws Exception {
@@ -45,38 +45,38 @@ public class StoryServiceBeanTest {
 
     @Test
     public void shouldGetThemeByID() {
-    	when(repository.select("select-story-by-id", 1L)).thenReturn(asList(new Story()));    	
+    	when(repository.selectOne("story-by-id", 1L)).thenReturn(new Story());
     	assertThat(storyServiceBean.getStory(1L), notNullValue());
-    	verify(repository).select("select-story-by-id", 1L);
+    	verify(repository).selectOne("story-by-id", 1L);
     }
 
-    
-    
-   
+
+
+
     @Test
     public void shouldUpdateStatusStory() {
-    	
+
     	Story story = new Story(null,null, TODO, null, null);
-    	
-    	when(repository.select("select-story-by-id", 1L)).thenReturn(asList(story));    	
+
+    	when(repository.selectOne("story-by-id", 1L)).thenReturn(story);
     	when(repository.save(story)).thenReturn(new Story(null,null, DOING, null, null));
-    	
+
         assertThat(storyServiceBean.updateStatusStory(1L, DOING).getStatus(), equalTo(DOING));
-        
-        verify(repository).select("select-story-by-id", 1L);
+
+        verify(repository).selectOne("story-by-id", 1L);
         verify(repository).save(story);
     }
 
 
-    
-    
+
+
 
 
     @Test
     public void shouldGetStoriesByStatus() {
-    	when(repository.select("select-story-by-status", BACKLOG)).thenReturn(geStories());    	
+    	when(repository.select("story-by-status", BACKLOG)).thenReturn(geStories());
     	assertThat(storyServiceBean.getStories(StoryStatus.BACKLOG), hasSize(6));
-    	verify(repository).select("select-story-by-status", BACKLOG);
+    	verify(repository).select("story-by-status", BACKLOG);
     }
 
 

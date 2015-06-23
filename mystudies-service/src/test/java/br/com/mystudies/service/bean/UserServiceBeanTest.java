@@ -1,7 +1,6 @@
 package br.com.mystudies.service.bean;
 
 
-import static java.util.Arrays.asList;
 import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -19,13 +18,14 @@ import br.com.mystudies.service.UserService;
 import br.com.mystudies.service.data.request.LoginDataRequest;
 import br.com.r3wa.fiscalpackage.persistence.Repository;
 
-public class UserServiceTest {
+public class UserServiceBeanTest {
 
 	
 	
 	@InjectMocks
 	private UserService userService;
 
+	
 	@Mock
 	private Repository repository;
 	
@@ -38,11 +38,10 @@ public class UserServiceTest {
 
 	
 
-	// TODO: change of name of test.
 	@Test
 	public void test1() {
 		
-		when(repository.select("select-user-by-login", "robson.o.d@gmail.com", sha1Hex("abc@123"))).thenReturn(asList(new User()));
+		when(repository.selectOne("user-by-login", "robson.o.d@gmail.com", sha1Hex("abc@123"))).thenReturn(new User());
 		
 		User user =  
 			userService.login(
@@ -54,7 +53,7 @@ public class UserServiceTest {
 		
 		assertThat(user, notNullValue());
 		
-		verify(repository).select("select-user-by-login", "robson.o.d@gmail.com", sha1Hex("abc@123"));
+		verify(repository).selectOne("user-by-login", "robson.o.d@gmail.com", sha1Hex("abc@123"));
 	}
 	
 	

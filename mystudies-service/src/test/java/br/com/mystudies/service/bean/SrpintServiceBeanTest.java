@@ -52,19 +52,19 @@ public class SrpintServiceBeanTest {
 
 	@Test
 	public void shouldReturnTrueWhileContainsSprintInRun() {
-		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(asList(new Sprint()));
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(new Sprint());
 		assertThat(sprintServiceBean.containsSprintInRun(), not(false));
-		verify(repository).select("select-sprint-by-status", RUNNING);
+		verify(repository).selectOne("sprint-by-status", RUNNING);
 	}
 
-	
+
 
 
 	@Test
 	public void shouldReturnFalseWhileDontContainsSprintInRun() {
-		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(null);
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(null);
 		assertThat(sprintServiceBean.containsSprintInRun(), not(true));
-		verify(repository).select("select-sprint-by-status", RUNNING);
+		verify(repository).selectOne("sprint-by-status", RUNNING);
 	}
 
 
@@ -72,56 +72,56 @@ public class SrpintServiceBeanTest {
 
 	@Test(expected=IllegalStateException.class)
 	public void shouldThrowExceptionWhenContainsSprintInRunning() {
-		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(asList(new Sprint()));
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(new Sprint());
 		sprintServiceBean.create(new Sprint());
 	}
 
-	
-	
+
+
 
 	@Test()
 	public void shouldCreateSprintWhenHaventSprintInRunning() {
 
 		Sprint sprint = new Sprint(new Date(),new Date(),RUNNING);
-		
-		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(null);
+
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(null);
 		when(repository.save(any())).thenReturn(sprint);
 
 		assertThat(sprintServiceBean.create(sprint), notNullValue());
-		
-		verify(repository).select("select-sprint-by-status", RUNNING);
+
+		verify(repository).selectOne("sprint-by-status", RUNNING);
 		verify(repository).save(sprint);
 	}
 
-	
-	
+
+
 	@Test()
-	public void shouldReturnNullWhenHaventSprintInRunning() {		
-		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(null);
+	public void shouldReturnNullWhenHaventSprintInRunning() {
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(null);
 		assertThat(sprintServiceBean.getCurrentSprint(), not(notNullValue()));
-		verify(repository).select("select-sprint-by-status", RUNNING);
+		verify(repository).selectOne("sprint-by-status", RUNNING);
 	}
 
-	
-	
+
+
 
 	@Test()
 	public void shouldReturnNullWhenHaveSprintInRunning() {
-		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(asList(new Sprint()));
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(new Sprint());
 		assertThat(sprintServiceBean.getCurrentSprint(), notNullValue());
-		verify(repository).select("select-sprint-by-status", RUNNING);
+		verify(repository).selectOne("sprint-by-status", RUNNING);
 	}
 
 
-	
+
 	@Test(expected=IllegalStateException.class)
 	public void shouldThrowAExceptionWhenHaventSprintInRunning() {
-		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(null);
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(null);
 		sprintServiceBean.addStoryInSprint(new Story());
 	}
 
-	
-	
+
+
 	@Test()
 	public void shouldReturnSprintWithStoryWithStatusInSprint() {
 
@@ -131,13 +131,13 @@ public class SrpintServiceBeanTest {
 		Story story = new Story();
 		story.setStatus(BACKLOG);
 		story.setPoints(3);
-		
-		when(repository.select("select-sprint-by-status", RUNNING)).thenReturn(asList(sprint));
+
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(sprint);
 		when(repository.save(sprint)).thenReturn(sprint);
 
 		sprint = sprintServiceBean.addStoryInSprint(story);
 
-		verify(repository).select("select-sprint-by-status", RUNNING);
+		verify(repository).selectOne("sprint-by-status", RUNNING);
 		verify(repository).save(sprint);
 
 		story = sprint.getStories().iterator().next();
@@ -147,17 +147,17 @@ public class SrpintServiceBeanTest {
 		assertThat(sprint.getEstimatedPoints(), equalTo(6L));
 	}
 
-	
-	
-	
+
+
+
 	@Test()
 	public void shouldReturnListAllSprint() {
-		when(repository.select("select-all-sprint")).thenReturn(asList(new Sprint()));
+		when(repository.select("all-sprint")).thenReturn(asList(new Sprint()));
 
 		List<Sprint> sprints =
 				sprintServiceBean.getAllSprints();
-		
-		verify(repository).select("select-all-sprint");
+
+		verify(repository).select("all-sprint");
 
 		assertThat(sprints, hasSize(1));
 	}
