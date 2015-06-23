@@ -3,6 +3,7 @@ package br.com.mystudies.domain.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -30,17 +31,22 @@ public class Story extends BaseEntity{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name="TITLE")
 	private String title;
 
+	@Column(name="PRIORITY")
 	@Enumerated(EnumType.STRING)
 	private Priority priority;
 
+	@Column(name="STATUS")
 	@Enumerated(EnumType.STRING)
 	private StoryStatus status;
 
+	@Column(name="CREATION_DATE")
 	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 
+	@Column(name="POINTS")
 	private Integer points;
 
 	@ManyToOne

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,24 +29,34 @@ public class Sprint extends BaseEntity {
 
 
 	@Id
+	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
+
+	@Column(name="ESTIMATED_POINTS")
 	private Long estimatedPoints = new Long(0); // default points
 
+	@Column(name="DONE_POINTS")
 	private Long donePoints;
 
+	@Column(name="START_DATE")
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
 
+	@Column(name="FINAL_DATE")
 	@Temporal(TemporalType.DATE)
 	private Date finalDate;
 
+
+	@Column(name="SPRINT_STATUS")
 	@Enumerated(EnumType.STRING)
 	private SprintStatus sprintStatus;
 
+
 	@OneToMany(mappedBy="sprint", cascade = CascadeType.ALL, fetch=FetchType.EAGER) // FIXME: can't eager !!
 	private Set<Story> stories = new HashSet<>(); // default stories
+
 
 
 	public Sprint() {
