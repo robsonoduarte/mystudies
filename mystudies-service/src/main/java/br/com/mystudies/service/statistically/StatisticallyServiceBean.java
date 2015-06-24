@@ -46,8 +46,7 @@ public class StatisticallyServiceBean  implements StatisticallyService{
 		double totalDonePooints = 0;
 
 
-		List<Temp> temps = new ArrayList<Temp>();
-
+		List<Temp> temps = new ArrayList<>();
 
 
 		for (Sprint sprint : sprints) {

@@ -1,5 +1,10 @@
 package br.com.mystudies.service.schedule;
 
+import static br.com.mystudies.domain.enun.SprintStatus.RUNNING;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.Date;
@@ -10,21 +15,27 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import br.com.mystudies.domain.entity.Sprint;
 import br.com.mystudies.domain.entity.Story;
 import br.com.mystudies.domain.enun.SprintStatus;
 import br.com.mystudies.domain.enun.StoryStatus;
+import br.com.r3wa.fiscalpackage.persistence.Repository;
 
 public class ScheduleSprintTest {
 
 
-/*	@Mock
-	private SprintDao sprintDao;*/
 
 
 	@InjectMocks
 	private ScheduleSprint scheduleSprint;
+
+
+	@Mock
+	private Repository repository;
+
+
 
 
 	@Before
@@ -49,16 +60,16 @@ public class ScheduleSprintTest {
 
 	@Test
 	public void shouldntDoNothingWhenFinalDateNotExpired() {
-/*
+
 		Sprint sprint = createSprint(1);
 
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(sprint);
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(sprint);
 
 		scheduleSprint.execute();
 
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
+		verify(repository).selectOne("sprint-by-status", RUNNING);
 
-		assertThat(SprintStatus.RUNNING, equalTo(sprint.getSprintStatus()));*/
+		assertThat(RUNNING, equalTo(sprint.getSprintStatus()));
 	}
 
 
@@ -67,13 +78,11 @@ public class ScheduleSprintTest {
 
 	@Test
 	public void shouldThrowNPE() { // null pointer exception when sprint == null
-
-/*		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(null);
-
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(null);
 		scheduleSprint.execute();
-
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);*/
+		verify(repository).selectOne("sprint-by-status", RUNNING);
 	}
+
 
 
 
@@ -89,16 +98,19 @@ public class ScheduleSprintTest {
 		 */
 
 
-/*		Sprint sprint = createSprint(-1);
+		Sprint sprint = createSprint(-1);
 
 
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(sprint);
-		when(sprintDao.update(sprint)).thenReturn(sprint);
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(sprint);
+		when(repository.save(sprint)).thenReturn(sprint);
+
 
 		scheduleSprint.execute();
 
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
-		verify(sprintDao).update(sprint);
+
+		verify(repository).selectOne("sprint-by-status", RUNNING);
+		verify(repository).save(sprint);
+
 
 		assertThat(SprintStatus.FAIL, equalTo(sprint.getSprintStatus()));
 		assertThat(new Long(30), equalTo(sprint.getDonePoints()));
@@ -108,8 +120,7 @@ public class ScheduleSprintTest {
 			if (story.getStatus() != StoryStatus.DONE) {
 				assertThat(StoryStatus.BACKLOG, equalTo(story.getStatus()));
 			}
-		}*/
-
+		}
 	}
 
 
@@ -122,19 +133,19 @@ public class ScheduleSprintTest {
 		 * sprint fail = when final date expired and sprint've any story in to do.
 		 *
 		 * all story in status different of done should changing status to backlog.
-		 *
-		 
+		 */
+
 
 
 		Sprint sprint = createSprint(-1);
 
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(sprint);
-		when(sprintDao.update(sprint)).thenReturn(sprint);
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(sprint);
+		when(repository.save(sprint)).thenReturn(sprint);
 
 		scheduleSprint.execute();
 
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
-		verify(sprintDao).update(sprint);
+		verify(repository).selectOne("sprint-by-status", RUNNING);
+		verify(repository).save(sprint);
 
 		assertThat(SprintStatus.FAIL, equalTo(sprint.getSprintStatus()));
 		assertThat(new Long(30), equalTo(sprint.getDonePoints()));
@@ -144,7 +155,7 @@ public class ScheduleSprintTest {
 			if (story.getStatus() != StoryStatus.DONE) {
 				assertThat(StoryStatus.BACKLOG, equalTo(story.getStatus()));
 			}
-		}*/
+		}
 	}
 
 
@@ -152,13 +163,13 @@ public class ScheduleSprintTest {
 	@Test
 	public void shouldUpdateStatusSprintWhenSprintSucess() { // process
 /*
-		
+
 		 *
 		 * sprint fail = when final date expired and sprint've any story in doing.
 		 *
 		 * all story in status different of done should changing status for todo.
-		 *
-		 
+		 */
+
 
 
 
@@ -172,18 +183,19 @@ public class ScheduleSprintTest {
 		sprint.getStories().add(new Story("STORY 4", null, StoryStatus.DONE, null,10));// <<---
 
 
+		when(repository.selectOne("sprint-by-status", RUNNING)).thenReturn(sprint);
+		when(repository.save(sprint)).thenReturn(sprint);
 
-		when(sprintDao.findSprintByStatus(SprintStatus.RUNNING)).thenReturn(sprint);
-		when(sprintDao.update(sprint)).thenReturn(sprint);
+
 
 		scheduleSprint.execute();
 
-		verify(sprintDao).findSprintByStatus(SprintStatus.RUNNING);
-		verify(sprintDao).update(sprint);
+		verify(repository).selectOne("sprint-by-status", RUNNING);
+		verify(repository).save(sprint);
 
 		assertThat(SprintStatus.SUCCESS, equalTo(sprint.getSprintStatus()));
 		assertThat(new Long(50), equalTo(sprint.getDonePoints()));
-*/
+
 	}
 
 

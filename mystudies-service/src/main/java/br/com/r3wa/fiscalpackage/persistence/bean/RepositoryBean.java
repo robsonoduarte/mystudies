@@ -100,7 +100,7 @@ public class RepositoryBean implements Repository {
 	@Override
 	public <T extends Entity> T selectOne(String queryName, Object... parameters) {
 		try{
-		return (T) createQuery(queryName, parameters).getSingleResult();
+			return (T) createQuery(queryName, parameters).getSingleResult();
 		}catch(NoResultException nr){
 			return null;
 		}
