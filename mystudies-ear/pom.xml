@@ -61,7 +61,6 @@
     </plugins>
   </build>
 
-
 	<profiles>
 		<profile>
 			<id>local</id>
