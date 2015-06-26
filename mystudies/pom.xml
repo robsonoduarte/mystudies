@@ -28,7 +28,6 @@
   	</plugins>
   </build>
 
-
 	<modules>
 		<module>../mystudies-domain</module>
 		<module>../mystudies-service</module>
