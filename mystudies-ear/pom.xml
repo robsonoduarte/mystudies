@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
 	<parent>
 		<artifactId>mystudies</artifactId>
 		<groupId>br.com</groupId>
@@ -38,6 +38,17 @@
 
   <build>
     <plugins>
+     <plugin>
+     	<groupId>org.wildfly.plugins</groupId>
+  		<artifactId>wildfly-maven-plugin</artifactId>
+  		<version>1.0.2.Final</version>
+  		<configuration>
+        	<hostname>52.27.15.202</hostname>
+			<port>9990</port>
+			<username>mystudies</username>
+			<password>Anamara@321</password>
+  		</configuration>
+     </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-ear-plugin</artifactId>
