@@ -13,15 +13,16 @@ import br.com.r3wa.fiscalpackage.persistence.Repository;
 @Local(UserService.class)
 public class UserServiceBean implements UserService {
 
-	
+
 	@EJB
 	private Repository repository;
-	
-	
+
+
 	@Override
 	public User login(LoginDataRequest loginDataRequest) {
+		System.out.println(loginDataRequest.toArray());
 		return repository.selectOne("user-by-login", loginDataRequest.toArray());
 	}
 
-	
+
 }
