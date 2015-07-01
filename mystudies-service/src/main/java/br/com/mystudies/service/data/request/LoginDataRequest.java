@@ -80,6 +80,8 @@ public final class LoginDataRequest implements Serializable{
 
 
 		public LoginDataRequest create() {
+			System.out.println("Email..: " + loginDataRequest.email + " password..: " + loginDataRequest.password);
+
 			validateState();
 			return loginDataRequest;
 		}
