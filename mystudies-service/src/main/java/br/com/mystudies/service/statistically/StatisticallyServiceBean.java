@@ -30,6 +30,7 @@ public class StatisticallyServiceBean  implements StatisticallyService{
 	@EJB
 	private SprintService sprintService;
 
+
 	@EJB
 	private StoryService storyService;
 
