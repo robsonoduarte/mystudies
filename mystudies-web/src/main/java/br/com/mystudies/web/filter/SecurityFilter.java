@@ -24,11 +24,12 @@ public class SecurityFilter implements Filter {
 
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		if(userLoged(request)){
+		chain.doFilter(request, response);
+/*		if(userLoged(request)){
 			chain.doFilter(request, response);
 		}else{
 			redirectToLogin(response);
-		}
+		}*/
 	}
 
 
