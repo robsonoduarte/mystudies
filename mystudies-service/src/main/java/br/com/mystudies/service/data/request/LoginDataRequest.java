@@ -107,6 +107,7 @@ public final class LoginDataRequest implements Serializable{
 
 
 	public Object[] toArray() {
+		System.out.println("Email -> " + email + " password -> " + sha1Hex(password));
 		return new String[]{email, sha1Hex(password)};
 	}
 
