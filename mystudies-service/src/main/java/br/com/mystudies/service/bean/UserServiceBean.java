@@ -18,9 +18,9 @@ public class UserServiceBean implements UserService {
 	private Repository repository;
 
 
+
 	@Override
 	public User login(LoginDataRequest loginDataRequest) {
-		System.out.println(loginDataRequest.toArray());
 		return repository.selectOne("user-by-login", loginDataRequest.toArray());
 	}
 

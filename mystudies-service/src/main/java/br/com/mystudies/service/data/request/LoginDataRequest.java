@@ -80,7 +80,6 @@ public final class LoginDataRequest implements Serializable{
 
 
 		public LoginDataRequest create() {
-			System.out.println("Email..: " + loginDataRequest.email + " password..: " + loginDataRequest.password);
 
 			validateState();
 			return loginDataRequest;
@@ -98,16 +97,10 @@ public final class LoginDataRequest implements Serializable{
 
 
 
-	public static void 	main(String[] args) {
-		System.out.println(sha1Hex("programadorjava"));
-	}
-
-
 
 
 
 	public Object[] toArray() {
-		System.out.println("Email -> " + email + " password -> " + sha1Hex(password));
 		return new String[]{email, sha1Hex(password)};
 	}
 

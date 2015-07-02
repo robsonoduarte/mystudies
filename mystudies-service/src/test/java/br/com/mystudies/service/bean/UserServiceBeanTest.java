@@ -53,9 +53,9 @@ public class UserServiceBeanTest {
 
 		assertThat(user, notNullValue());
 
-		System.out.println(sha1Hex("programdorjava"));
 
 		verify(repository).selectOne("user-by-login", "robson.o.d@gmail.com", sha1Hex("abc@123"));
+
 	}
 
 
