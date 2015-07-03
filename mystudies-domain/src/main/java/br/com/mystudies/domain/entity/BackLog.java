@@ -9,14 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
- * 
- * 
+ *
+ *
  * @author Robson
  */
 @Entity
+@Table(name="BACKLOG")
 public class BackLog extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;

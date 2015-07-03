@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -27,6 +28,7 @@ import br.com.mystudies.domain.enun.Priority;
  * @author Robson
  */
 @Entity
+@Table(name="THEME")
 public class Theme extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;

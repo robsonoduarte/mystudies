@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -23,6 +24,7 @@ import br.com.mystudies.domain.enun.StoryStatus;
  * @author Robson
  */
 @Entity
+@Table(name="STORY")
 public class Story extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
