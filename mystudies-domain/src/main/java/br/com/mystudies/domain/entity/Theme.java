@@ -1,18 +1,19 @@
 package br.com.mystudies.domain.entity;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,25 +25,30 @@ import javax.persistence.Transient;
 
 import br.com.mystudies.domain.enun.Priority;
 
-/**
- * @author Robson
- */
+
 @Entity
 @Table(name="THEME")
 public class Theme extends BaseEntity{
 
+
 	private static final long serialVersionUID = 1L;
+
 
 	@Id
 	@Column(name="ID")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=IDENTITY)
 	private Long id;
 
+
+	@Column(name="TITLE")
 	private String title;
 
+
+	@Column(name="PRIORITY")
 	@Enumerated(EnumType.STRING)
 	private Priority priority;
 
+	@Column(name="CREATION_DATE")
 	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 
@@ -50,15 +56,20 @@ public class Theme extends BaseEntity{
 	@JoinColumn(name="BACKLOG_ID")
 	private BackLog backLog;
 
-	@OneToMany(mappedBy="theme", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+
+	@OneToMany(mappedBy="theme", cascade = ALL, fetch=FetchType.EAGER)
 	private Set<Story> stories = new HashSet<>(); // default empyt set
+
+
 
 	@Transient // not implemented
 	private List<Comment> comments;
 
 
+
 	public Theme() {
 	}
+
 
 	public Theme(String name, Priority priority, Date creationDate) {
 		super();
