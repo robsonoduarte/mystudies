@@ -7,8 +7,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Before;
@@ -175,7 +175,7 @@ public class ScheduleSprintTest {
 
 
 		Sprint sprint = createSprint(-1);
-		sprint.setStories(new HashSet<Story>());
+		sprint.setStories(new ArrayList<Story>());
 		sprint.getStories().add(new Story("STORY 1", null, StoryStatus.DONE, null,10));
 		sprint.getStories().add(new Story("STORY 2", null, StoryStatus.DONE, null,10));
 		sprint.getStories().add(new Story("STORY 3", null, StoryStatus.DONE, null,10)); // <<---
@@ -238,7 +238,7 @@ public class ScheduleSprintTest {
 		sprint.setSprintStatus(SprintStatus.RUNNING);
 
 
-		sprint.setStories(new HashSet<Story>());
+		sprint.setStories(new ArrayList<Story>());
 		sprint.getStories().add(new Story("STORY 1", null, StoryStatus.DONE, null, 10));
 		sprint.getStories().add(new Story("STORY 2", null, StoryStatus.DONE, null, 10));
 		sprint.getStories().add(new Story("STORY 3", null, StoryStatus.DOING, null, 10));

@@ -4,7 +4,7 @@ package br.com.mystudies.service.schedule;
 import static br.com.mystudies.domain.enun.SprintStatus.RUNNING;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.Schedule;
@@ -74,7 +74,7 @@ public class ScheduleSprint {
 	}
 
 
-	private boolean allStoriesIsDone(Set<Story> stories) {
+	private boolean allStoriesIsDone(List<Story> stories) {
 		for (Story story : stories) {
 			if(!storyIsDone(story)){
 				return false;
@@ -84,7 +84,7 @@ public class ScheduleSprint {
 	}
 
 
-	private void moveStoriesForStatusSprintBackLog(Set<Story> stories) {
+	private void moveStoriesForStatusSprintBackLog(List<Story> stories) {
 		for (Story story : stories) {
 			if(!storyIsDone(story)){
 				story.setStatus(StoryStatus.BACKLOG);
@@ -98,7 +98,7 @@ public class ScheduleSprint {
 
 
 
-	private Long getDonePoints(Set<Story> stories) {
+	private Long getDonePoints(List<Story> stories) {
 		Long donePoints = new Long(0);
 		for (Story story : stories) {
 			if(storyIsDone(story)){
