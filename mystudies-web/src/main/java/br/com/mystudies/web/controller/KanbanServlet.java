@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -21,9 +20,7 @@ import br.com.mystudies.domain.enun.StoryStatus;
 import br.com.mystudies.service.SprintService;
 import br.com.mystudies.service.StoryService;
 
-/**
- * @author Robson
- */
+
 @WebServlet("/kanban")
 public class KanbanServlet extends HttpServlet {
 
@@ -71,8 +68,8 @@ public class KanbanServlet extends HttpServlet {
 				break;
 			}*/
 
-    		
-    		if("UPDATESTATUSSTORY".equals(action)){    			
+
+    		if("UPDATESTATUSSTORY".equals(action)){
     			storyService.updateStatusStory(
     					Long.valueOf(request.getParameter("storyID")),
     					StoryStatus.valueOf(request.getParameter("kanbanFase"))
@@ -80,7 +77,7 @@ public class KanbanServlet extends HttpServlet {
     		}
 
     	}
-    	
+
     	setCurrentSprintInRequest(request);
 
 
@@ -103,7 +100,7 @@ public class KanbanServlet extends HttpServlet {
 
 
 
-    	Set<Story> stories =
+    	List<Story> stories =
     			sprint.getStories();
 
 

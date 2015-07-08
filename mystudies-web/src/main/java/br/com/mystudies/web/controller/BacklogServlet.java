@@ -45,8 +45,8 @@ public class BacklogServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
-		
+
+
 		String action =
 				(String) request.getParameter("action");
 
@@ -63,12 +63,12 @@ public class BacklogServlet extends HttpServlet {
 					sendtoBackLogThemesFragment(request, response);
 					break;
 			}*/
-			
+
 			if("ADDTHEME".endsWith(action)){
 				backLogService.addTheme(getBackLog(), getTheme(request));
-				sendtoBackLogThemesFragment(request, response);				
-			}else{				
-				sendtoBackLogThemesFragment(request, response);				
+				sendtoBackLogThemesFragment(request, response);
+			}else{
+				sendtoBackLogThemesFragment(request, response);
 			}
 		}
 	}
