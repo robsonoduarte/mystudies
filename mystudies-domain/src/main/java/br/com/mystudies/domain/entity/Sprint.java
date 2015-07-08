@@ -1,8 +1,7 @@
 package br.com.mystudies.domain.entity;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -56,8 +55,8 @@ public class Sprint extends BaseEntity {
 	private SprintStatus sprintStatus;
 
 
-	@OneToMany(mappedBy="sprint", cascade = CascadeType.ALL, fetch=FetchType.EAGER) // FIXME: can't eager !!
-	private Set<Story> stories = new HashSet<>(); // default stories
+	@OneToMany(mappedBy="sprint", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	private List<Story> stories ;
 
 
 
@@ -133,14 +132,17 @@ public class Sprint extends BaseEntity {
 	}
 
 
-	public Set<Story> getStories() {
+	public List<Story> getStories() {
 		return stories;
 	}
 
 
-	public void setStories(Set<Story> stories) {
+	public void setStories(List<Story> stories) {
 		this.stories = stories;
 	}
+
+
+
 
 
 }
