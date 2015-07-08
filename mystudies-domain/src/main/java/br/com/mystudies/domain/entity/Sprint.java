@@ -1,5 +1,6 @@
 package br.com.mystudies.domain.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class Sprint extends BaseEntity {
 
 
 	@OneToMany(mappedBy="sprint", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	private List<Story> stories ;
+	private List<Story> stories = new ArrayList<>() ;
 
 
 
