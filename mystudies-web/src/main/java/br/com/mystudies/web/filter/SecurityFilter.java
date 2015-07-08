@@ -8,12 +8,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebFilter( urlPatterns={"/backlog", "/kanban", "/sprints", "/statistics", "/theme"})
+//@WebFilter( urlPatterns={"/backlog", "/kanban", "/sprints", "/statistics", "/theme"})
 public class SecurityFilter implements Filter {
 
 
@@ -61,6 +60,8 @@ public class SecurityFilter implements Filter {
 	private void redirectToLogin(ServletResponse response) throws IOException {
 		((HttpServletResponse) response).sendRedirect("index.html");
 	}
+
+
 
 	public void destroy() {}
 
