@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,7 +27,7 @@ public class BackLog extends BaseEntity{
 	private Long id;
 
 
-	@OneToMany(mappedBy="backLog", cascade=CascadeType.ALL, fetch= FetchType.EAGER) // FIXME: can't is EAGER
+	@OneToMany(mappedBy="backLog", cascade=CascadeType.ALL) // FIXME: can't is EAGER
 	private Set<Theme> themes;
 
 
