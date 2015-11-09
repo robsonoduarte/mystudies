@@ -17,7 +17,12 @@ public class MongoMigrant {
 
 	@Inject
 	private Repository repository;
+
 	
+	
+	
+	@Inject
+	private MongoDB mongoDB;
 
 	
 	
@@ -25,16 +30,16 @@ public class MongoMigrant {
 	@Schedule(hour="*", minute="*")
 	public void emigrate(){
 		
+		
+		System.out.println("emigrate.......");
+		
 		List<BackLog> backlog = repository.select("list-backlog");
 		
 		
 	
 		backlog.forEach(b -> {
-			b.getThemes().forEach(t -> { 
-				System.out.println(t); 
-			});
+			mongoDB.save(b);			
 		});
-		
 			
 	}
 
