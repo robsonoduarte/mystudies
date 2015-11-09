@@ -1,62 +1,47 @@
 package br.com.mystudies.domain.entity;
 
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import br.com.mystudies.domain.enun.Priority;
 
 
-@Entity
-@Table(name="THEME")
+/*@Entity
+@Table(name="THEME")*/
 public class Theme extends BaseEntity{
 
 
 	private static final long serialVersionUID = 1L;
 
 
-	@Id
+/*	@Id
 	@Column(name="ID")
-	@GeneratedValue(strategy=IDENTITY)
+	@GeneratedValue(strategy=IDENTITY)*/
 	private Long id;
 
 
-	@Column(name="TITLE")
-	private String title;
+	/*@Column(name="TITLE")*/
+	String title;
 
 
-	@Column(name="PRIORITY")
-	@Enumerated(EnumType.STRING)
-	private Priority priority;
+/*	@Column(name="PRIORITY")
+	@Enumerated(EnumType.STRING)*/
+	Priority priority;
 
-	@Column(name="CREATION_DATE")
-	@Temporal(TemporalType.DATE)
-	private Date creationDate;
+/*	@Column(name="CREATION_DATE")
+	@Temporal(TemporalType.DATE)*/
+	Date creationDate;
 
-	@ManyToOne
-	@JoinColumn(name="BACKLOG_ID")
-	private BackLog backLog;
+/*	@ManyToOne
+	@JoinColumn(name="BACKLOG_ID")*/
+	/*private BackLog backLog;*/
 
 
-	@OneToMany(mappedBy="theme", cascade = ALL)
+	/*@OneToMany(mappedBy="theme", cascade = ALL)*/
 	private Set<Story> stories = new HashSet<>(); // default empyt set
 
 
@@ -109,13 +94,13 @@ public class Theme extends BaseEntity{
 		this.creationDate = creationDate;
 	}
 
-	public BackLog getBackLog() {
+/*	public BackLog getBackLog() {
 		return backLog;
 	}
 
 	public void setBackLog(BackLog backLog) {
 		this.backLog = backLog;
-	}
+	}*/
 
 
 	public Set<Story> getStories() {
