@@ -1,48 +1,70 @@
 package br.com.mystudies.domain.entity;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.TemporalType.DATE;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
+
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Reference;
 
 import br.com.mystudies.domain.enun.Priority;
 
-
-/*@Entity
-@Table(name="THEME")*/
+@org.mongodb.morphia.annotations.Entity
+@Entity
+@Table(name="THEME")
 public class Theme extends BaseEntity{
 
 
 	private static final long serialVersionUID = 1L;
 
 
-/*	@Id
+	@Id
 	@Column(name="ID")
-	@GeneratedValue(strategy=IDENTITY)*/
+	@GeneratedValue(strategy=IDENTITY)
 	private Long id;
 
+	@org.mongodb.morphia.annotations.Id
+	private ObjectId ObjectId;
+	
 
-	/*@Column(name="TITLE")*/
+	@Column(name="TITLE")
 	String title;
 
 
-/*	@Column(name="PRIORITY")
-	@Enumerated(EnumType.STRING)*/
+	@Column(name="PRIORITY")
+	@Enumerated(STRING)
 	Priority priority;
 
-/*	@Column(name="CREATION_DATE")
-	@Temporal(TemporalType.DATE)*/
+	@Column(name="CREATION_DATE")
+	@Temporal(DATE)
 	Date creationDate;
 
-/*	@ManyToOne
-	@JoinColumn(name="BACKLOG_ID")*/
-	/*private BackLog backLog;*/
+	@ManyToOne
+	@JoinColumn(name="BACKLOG_ID")
+	private BackLog backLog;
 
 
-	/*@OneToMany(mappedBy="theme", cascade = ALL)*/
-	private Set<Story> stories = new HashSet<>(); // default empyt set
+	@OneToMany(mappedBy="theme", cascade = ALL)
+	@Reference
+	private Set<Story> stories = new HashSet<>();
 
 
 
@@ -62,6 +84,8 @@ public class Theme extends BaseEntity{
 		this.creationDate = creationDate;
 	}
 
+	
+	
 	public Long getId() {
 		return id;
 	}
