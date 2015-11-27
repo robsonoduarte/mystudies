@@ -52,7 +52,7 @@ public class MongoMigrant extends HttpServlet {
 			
 			
 			backlog.forEach(b ->{
-				b.getThemes().forEach(t -> {mongoDB.save(t);});							
+				b.getThemes().forEach(t -> {mongoDB.save(t.tomongo());});							
 			});
 		} catch (Throwable e) {
 			e.printStackTrace();
