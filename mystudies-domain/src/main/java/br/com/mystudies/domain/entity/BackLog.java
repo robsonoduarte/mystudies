@@ -4,12 +4,7 @@ package br.com.mystudies.domain.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -17,8 +12,8 @@ import javax.persistence.Table;
  *
  * @author Robson
  */
-@Entity
-@Table(name="BACKLOG")
+/*@Entity
+@Table(name="BACKLOG")*/
 public class BackLog extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
@@ -28,16 +23,16 @@ public class BackLog extends BaseEntity{
 	private Long id;
 
 
-	@OneToMany(mappedBy="backLog", cascade=CascadeType.ALL, fetch= FetchType.EAGER) // FIXME: can't is EAGER
-	private Set<Theme> themes;
+	/*@OneToMany(mappedBy="backLog", cascade=CascadeType.ALL) // FIXME: can't is EAGER
+*/	private Set<Theme> themes;
 
 
 	public void addTheme(Theme theme) {
 		if(themes == null){
 			themes = new HashSet<Theme>();
 		}
-		theme.setBackLog(this); // FIXME: Null pointer, remove this logic there ?
-		themes.add(theme);
+		/*theme.setBackLog(this); // FIXME: Null pointer, remove this logic there ?
+*/		themes.add(theme);
 	}
 
 
