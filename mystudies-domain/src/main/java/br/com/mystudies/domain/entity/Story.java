@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.mongodb.morphia.annotations.Reference;
+
 import br.com.mystudies.domain.enun.Priority;
 import br.com.mystudies.domain.enun.StoryStatus;
 
@@ -58,6 +60,7 @@ public class Story extends BaseEntity{
 
 	@ManyToOne
 	@JoinColumn(name="SPRINT_ID")
+	@Reference
 	private Sprint sprint;
 
 

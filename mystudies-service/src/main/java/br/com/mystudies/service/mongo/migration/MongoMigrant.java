@@ -3,14 +3,13 @@ package br.com.mystudies.service.mongo.migration;
 import java.util.List;
 
 import javax.ejb.Schedule;
-import javax.ejb.Singleton;
 import javax.inject.Inject;
 
-import br.com.mystudies.domain.entity.BackLog;
+import br.com.mystudies.domain.entity.Entity;
 import br.com.r3wa.fiscalpackage.persistence.Repository;
 
 // migrant
-@Singleton
+/*@Singleton*/
 public class MongoMigrant {
 
 	
@@ -33,12 +32,12 @@ public class MongoMigrant {
 		
 		System.out.println("emigrate.......");
 		
-		List<BackLog> backlog = repository.select("list-backlog");
+		List<Entity> backlog = repository.select("list-backlog");
 		
 		
 	
 		backlog.forEach(b -> {
-			mongoDB.save(b);			
+	//		mongoDB.save(b);			
 		});
 			
 	}

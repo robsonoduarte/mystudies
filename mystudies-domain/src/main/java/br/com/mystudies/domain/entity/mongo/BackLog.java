@@ -1,4 +1,4 @@
-package br.com.mystudies.domain.entity;
+package br.com.mystudies.domain.entity.mongo;
 
 
 import static javax.persistence.CascadeType.ALL;

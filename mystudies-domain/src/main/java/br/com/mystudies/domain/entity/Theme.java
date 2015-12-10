@@ -1,48 +1,69 @@
 package br.com.mystudies.domain.entity;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.TemporalType.DATE;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
+
+import org.bson.types.ObjectId;
 
 import br.com.mystudies.domain.enun.Priority;
 
 
-/*@Entity
-@Table(name="THEME")*/
+@Entity
+@Table(name="THEME")
 public class Theme extends BaseEntity{
 
 
 	private static final long serialVersionUID = 1L;
 
 
-/*	@Id
+	@Id
 	@Column(name="ID")
-	@GeneratedValue(strategy=IDENTITY)*/
+	@GeneratedValue(strategy=IDENTITY)
 	private Long id;
 
+	@org.mongodb.morphia.annotations.Id
+	private ObjectId ObjectId;
+	
 
-	/*@Column(name="TITLE")*/
+	@Column(name="TITLE")
 	String title;
 
 
-/*	@Column(name="PRIORITY")
-	@Enumerated(EnumType.STRING)*/
+	@Column(name="PRIORITY")
+	@Enumerated(STRING)
 	Priority priority;
 
-/*	@Column(name="CREATION_DATE")
-	@Temporal(TemporalType.DATE)*/
+	@Column(name="CREATION_DATE")
+	@Temporal(DATE)
 	Date creationDate;
 
-/*	@ManyToOne
-	@JoinColumn(name="BACKLOG_ID")*/
-	/*private BackLog backLog;*/
+	@ManyToOne
+	@JoinColumn(name="BACKLOG_ID")
+	private BackLog backLog;
 
 
-	/*@OneToMany(mappedBy="theme", cascade = ALL)*/
-	private Set<Story> stories = new HashSet<>(); // default empyt set
+	@OneToMany(mappedBy="theme", cascade = ALL, fetch=FetchType.EAGER)
+	private Set<Story> stories = new HashSet<>();
 
 
 
@@ -62,6 +83,8 @@ public class Theme extends BaseEntity{
 		this.creationDate = creationDate;
 	}
 
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -119,46 +142,43 @@ public class Theme extends BaseEntity{
 		this.comments = comments;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((priority == null) ? 0 : priority.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Theme other = (Theme) obj;
-		if (creationDate == null) {
-			if (other.creationDate != null)
-				return false;
-		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (priority != other.priority)
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
+	
+	
+	
+	
+	
+	
+	
+	public br.com.mystudies.domain.entity.mongo.Theme tomongo(){
+		br.com.mystudies.domain.entity.mongo.Theme theme = new br.com.mystudies.domain.entity.mongo.Theme();
+		
+		theme.creationDate = new Date(creationDate.getTime());
+		theme.priority = priority;
+		theme.title = title;
+		
+		stories.forEach( s -> {
+			br.com.mystudies.domain.entity.mongo.Story story = new br.com.mystudies.domain.entity.mongo.Story();
+			story.creationDate = new Date(s.getCreationDate().getTime());
+			story.points = s.getPoints();
+			story.priority = s.getPriority();
+			story.status = s.getStatus();
+			story.title = s.getTitle();
+			
+			theme.addStory(story);
+		});
+		
+		
+		
+		
+		return theme;
+		
 	}
-
+	
+	
+	
+	
+	
+	
+	
 }
